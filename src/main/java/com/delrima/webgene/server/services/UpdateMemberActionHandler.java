@@ -32,11 +32,8 @@ public class UpdateMemberActionHandler extends AbstractWebgeneActionHandler impl
         this.retrieveSingleMemberActionHandler = retrieveSingleMemberActionHandler;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see net.customware.gwt.dispatch.server.ActionHandler#execute(net.customware .gwt.dispatch.shared.Action,
-     * net.customware.gwt.dispatch.server.ExecutionContext)
+    /* (non-Javadoc)
+     * @see com.delrima.webgene.client.action.ActionHandler#execute(com.delrima.webgene.client.common.Action)
      */
     public UpdateMemberResult execute(UpdateMemberAction action) throws ActionException {
         System.out.println("UpdateMemberHandler.execute()");

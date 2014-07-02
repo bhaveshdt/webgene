@@ -6,10 +6,10 @@ import java.util.Map;
 import org.aspectj.lang.Aspects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.aspectj.AnnotationBeanConfigurerAspect;
-import org.springframework.beans.factory.aspectj.EnableSpringConfigured;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.aspectj.EnableSpringConfigured;
 
 import com.delrima.webgene.client.action.MemberLookupAction;
 import com.delrima.webgene.client.action.RetrieveMemberTreeAction;

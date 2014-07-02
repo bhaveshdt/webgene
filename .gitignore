@@ -3,3 +3,6 @@
 .settings/
 target/
 .springBeans
+**/gwt-unitCache/
+**/com.delrima.webgene.WebGeneModuleEntry/
+ajcore*.txt

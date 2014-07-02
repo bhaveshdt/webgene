@@ -48,8 +48,8 @@ public class Contact implements Serializable, IsSerializable {
     @Column(name = "IM", length = 100)
     private String im;
 
-    @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
-    private transient Set<Member> members;
+//    @OneToMany(mappedBy = "contact", fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+//    private transient Set<Member> members;
 
     @Column(name = "MOBILEPHONE", length = 20)
     private String mobilephone;
@@ -103,9 +103,9 @@ public class Contact implements Serializable, IsSerializable {
         return im;
     }
 
-    public Set<Member> getMembers() {
-        return members;
-    }
+//    public Set<Member> getMembers() {
+//        return members;
+//    }
 
     public String getMobilephone() {
         return mobilephone;
@@ -167,9 +167,9 @@ public class Contact implements Serializable, IsSerializable {
         this.im = im;
     }
 
-    public void setMembers(Set<Member> members) {
-        this.members = members;
-    }
+//    public void setMembers(Set<Member> members) {
+//        this.members = members;
+//    }
 
     public void setMobilephone(String mobilephone) {
         this.mobilephone = mobilephone;
