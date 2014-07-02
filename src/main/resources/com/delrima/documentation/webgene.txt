@@ -1,0 +1,50 @@
+
+=====================
+Functional (short-term)
+=====================
+Display
+	- select and show members tree
+	- mobile version
+	- show error messages on retrieve members
+	- deploy to app engine
+	- click goes directly to update member
+		- merge menu into the update dialog box
+	- add user-interaction feedback
+		- add command execution status bar
+		- add work-in-progress animation
+	- sort by age,alphabet
+	- icons for
+		- deceased (if expired date available)
+		- married (if wedding date available)
+
+Performance
+	- initial page load
+		- reduce initial call to child-parent-id(s)
+			- evaluate the relation tree on the client-side
+		- make second call to retrieve member-only information for the members being displayed
+		- will require database schema change
+			- move parent information out of the member table
+
+Write test cases
+	- client and server side
+
+
+Contact
+	- multiple contacts
+	- re-use existing contact
+
+=====================
+Functional (done)
+=====================
+display tree for all members
+add child
+edit member
+display tree by member
+relation display mode - parent-children 
+Add/Update Spouse
+	- update all children
+Display
+	- show error messages
+data provider test cases
+display child-parent tree
+incorporate gwt-visualizations

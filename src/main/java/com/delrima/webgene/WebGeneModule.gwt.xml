@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module>
+
+	<stylesheet src="css/WebgeneModule.css" />
+	<script src="http://www.google.com/jsapi" />
+	<!--
+		GWT INHERITS 
+	-->
+<!--	<inherits name="org.adamtacy.GWTEffects"/>-->
+	<inherits name="com.google.gwt.editor.Editor" />
+	<inherits name='com.google.gwt.visualization.Visualization'/>
+	
+	<!--
+		APPLICATION INHERITS 
+	-->
+	<inherits name="com.delrima.webgene.arch.Arch"/>
+
+</module>

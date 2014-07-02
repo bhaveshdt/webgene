@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+
+	<inherits name="com.delrima.webgene.WebGeneModuleEntry" />
+
+	<set-property name="locale" value="default" />
+	<set-property name="log_level" value="DEBUG" />
+	<set-property name="user.agent" values="gecko1_8" />
+
+</module>

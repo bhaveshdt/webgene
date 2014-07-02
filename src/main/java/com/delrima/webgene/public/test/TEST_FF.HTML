@@ -1,0 +1,122 @@
+<html>
+
+
+<head>
+	<style>
+		.member {
+			color: red;
+		}
+		.parent {
+			border: thin solid black;
+			width: auto; white-space: nowrap;
+			float:left;
+			margin-top: 50%;
+			margin-left: 10px;
+			margin-right: 10px;
+		}
+		.children {
+			
+			margin-top: 0px;
+			width: auto; white-space: nowrap;
+			float:left;
+		}
+	</style>
+</head>
+
+<body>
+<!-- Need the first children div -->
+<!-- Need the first parent inline style for margin-top -->
+<div class="children" style="margin-top: 0px;">
+	<div class="member">
+		<div class="parent" style="margin-top: 60%;">Parent</div>
+		<div class="children">
+			<div class="member"><div class="parent">Child1</div>
+				<div class="children">
+					<div class="member"><div class="parent">Child1</div>
+				<div class="children">
+					<div class="member"><div class="parent">Child11</div></div>
+					<div class="member"><div class="parent">Child12</div></div>
+				</div>
+			</div>
+					<div class="member"><div class="parent">Child1</div>
+				<div class="children">
+					<div class="member"><div class="parent">Child11</div></div>
+					<div class="member"><div class="parent">Child12</div></div>
+				</div>
+			</div>
+				</div>
+			</div>
+			
+			<div class="member"><div class="parent">Child2</div>
+				<div class="children">
+					<div class="member"><div class="parent">Child21</div></div>
+					<div class="member"><div class="parent">Child22</div></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!---->
+<!--<table>-->
+<!--<tr>-->
+<!--	<td class="parent">Parent</td>-->
+<!--	<td class="connector"><hr /></td>-->
+<!--	<td class="children">-->
+<!--		<table>-->
+<!--		<tr>-->
+<!--			<td class="parent">Parent</td>-->
+<!--			<td class="children">-->
+<!--				<table>-->
+<!--				<tr>-->
+<!--					<td class="parent">Parent</td>-->
+<!--					<td class="children">-->
+<!--						<table>-->
+<!--						<tr>-->
+<!--							<td class="parent">Parent</td>-->
+<!--							<td class="children">-->
+<!--							</td>-->
+<!--						</tr>-->
+<!--						<tr>-->
+<!--							<td class="parent">Parent</td>-->
+<!--							<td class="children">-->
+<!--							</td>-->
+<!--						</tr>-->
+<!--						</table>-->
+<!--					</td>-->
+<!--				</tr>-->
+<!--				</table>-->
+<!--			</td>-->
+<!--		</tr>-->
+<!--		<tr>-->
+<!--			<td class="parent">Parent</td>-->
+<!--			<td class="children">-->
+<!--				<table>-->
+<!--				<tr>-->
+<!--					<td class="parent">Parent</td>-->
+<!--					<td class="children">-->
+<!--						<table>-->
+<!--						<tr>-->
+<!--							<td class="parent">Parent</td>-->
+<!--							<td class="children">-->
+<!--							</td>-->
+<!--						</tr>-->
+<!--						<tr>-->
+<!--							<td class="parent">Parent</td>-->
+<!--							<td class="children">-->
+<!--							</td>-->
+<!--						</tr>-->
+<!--						</table>-->
+<!--					</td>-->
+<!--				</tr>-->
+<!--				</table>-->
+<!--			</td>-->
+<!--		</tr>-->
+<!--		</table>-->
+<!--	</td>-->
+<!--</tr>-->
+<!--</table>-->
+
+</body>
+
+</html>

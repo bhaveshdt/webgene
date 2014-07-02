@@ -1,0 +1,168 @@
+<html>
+<head>
+<script type="text/javascript" src="jquery-1.5.1.js" ></script>
+<script type="text/javascript" src="underscore.js" ></script>
+<style>
+.member{
+	border: 1px solid;
+	margin: 1px;
+	position:absolute;
+	width: 100px;
+	text-align: center;
+	padding: 1px;
+	height: 20px;
+	overflow: hidden;
+}
+.tree { position:relative; }
+.horizontal-tree { float:left; }
+.ancestors {color:grey;}
+.descendants {color:green;}
+.root {color:black}
+</style>
+<script type='text/javascript'>
+$(document).ready(function() {
+	var argLabels = ['el', 'plevel','slevel','isleaf','firstChildLeft', 'lastChildLeft','topVal','leftVal'];
+	function log(args) {
+		var i;
+		var obj = {};
+		for (i = 0; i<argLabels.length; i++) {
+			obj[argLabels[i]] = args[i];
+		}
+		console.log(JSON.stringify(obj));
+	}
+	function Tree(context) {
+		this.setOrientation = function(orientation){context.orientation = orientation};
+		function doCreate(memberId) {
+			function getMember(id) {return (_.filter(context.data,function(val){return val && val[0]==id;}))[0];};
+			function getChildren(id) {return _.filter(context.data,function(val){return val[1]==id || val[2]==id;});};
+			function getParents(id1,id2) {return _.filter([getMember(id1),getMember(id2)],function(val){return val;});};		
+			var descendantTreeCreator = new TreeCreator({id:'descendants',elevator:1,getChildNodes:function(m){return getChildren(m[0])}},context);
+			var ancestorTreeCreator = new TreeCreator({id:'ancestors',elevator:-1,getChildNodes:function(m){return getParents(m[1],m[2])}},context);
+			var descendantRootNodeInfo = descendantTreeCreator.createNodeTree(getMember(memberId),0,0);
+			var ancestorRootNodeInfo = ancestorTreeCreator.createNodeTree(getMember(memberId),0,0,descendantRootNodeInfo.el);
+			$(descendantRootNodeInfo.el).addClass('root');
+			if (ancestorTreeCreator.isVerticalOrientation()) {
+				var difference = descendantRootNodeInfo.left - ancestorRootNodeInfo.left;
+				ancestorTreeCreator.getContainerEl().css('margin-top',ancestorTreeCreator.getHeight()+'px');
+				descendantRootNodeInfo.el.style.left = descendantRootNodeInfo.left+'px';
+				((difference>0?ancestorTreeCreator:descendantTreeCreator).getContainerEl()).css('margin-left',Math.abs(difference)+'px');
+			} else {
+				var difference = descendantRootNodeInfo.top - ancestorRootNodeInfo.top;
+				ancestorTreeCreator.getContainerEl().css('margin-left',ancestorTreeCreator.getWidth()+'px');
+				descendantRootNodeInfo.el.style.top = descendantRootNodeInfo.top+'px';
+				((difference>0?ancestorTreeCreator:descendantTreeCreator).getContainerEl()).css('margin-top',Math.abs(difference)+'px');
+				if (difference<=0) {
+					((descendantTreeCreator).getContainerEl()).css('margin-left',Math.abs(ancestorTreeCreator.getWidth())+'px');
+				}
+			}
+			
+		};
+		this.create = function(id){doCreate(id);};
+		
+		function TreeCreator(context,treeContext) {
+			this.isVerticalOrientation = function(){return (treeContext.orientation == 'vertical');};
+			var height = 0;
+			var width = 0;
+			var containerEl = $('#'+treeContext.id+'_' + context.id);
+			this.getContainerEl = function(){return containerEl};
+			var evaluatePosition = this.isVerticalOrientation() ? evaluatePositionForVerticalTree : evaluatePositionForHorizontalTree;
+			function evaluatePositionForHorizontalTree(el,plevel,slevel,isleaf,firstChild,lastChild) {
+				var fromtop = slevel*(treeContext.el_height + treeContext.margin);
+				var center = (lastChild.top-firstChild.top)/2;
+				var topVal=(center+firstChild.top)+(isleaf?fromtop:0);
+				var leftVal=(plevel*(treeContext.el_width + treeContext.margin));
+				log([$(el).html(),plevel,slevel,isleaf,firstChild.left,lastChild.left,topVal,leftVal]);
+				return {top:topVal,left:leftVal};		
+			}
+			function evaluatePositionForVerticalTree(el,plevel,slevel,isleaf,firstChild,lastChild) {
+				var indent = slevel*(treeContext.el_width + treeContext.margin);
+				var center = (lastChild.left-firstChild.left)/2;
+				var topVal=(plevel*(treeContext.el_height + treeContext.margin));
+				var leftVal=(center+firstChild.left)+(isleaf?indent:0);
+				log([$(el).html(),plevel,slevel,isleaf,firstChild.left,lastChild.left,topVal,leftVal]);
+				return {top:topVal,left:leftVal};
+			};			
+			function createNode(m) {
+				var el = treeContext.createNodeElement(m);
+				containerEl.append(el);
+				$(el).attr('id', 'family'+m[0]);
+				$(el).addClass('member');			
+				return el;
+			}
+			function doCreateNodeTreeWithEl(m,plevel,slevel,el) {
+				var children = context.getChildNodes(m);
+				var span = 0, firstChild = {left:0,top:0}, lastChild = {left:0,top:0};
+				_.each(children,function(m,idx){span +=(lastChild = doCreateNodeTree(m,(plevel+context.elevator),span+slevel)).span;if(idx==0) {firstChild=lastChild}});
+				var isleaf = (!children || children.length == 0);
+				span = isleaf ? 1 : span;
+				var position = evaluatePosition(el,plevel,slevel,isleaf,firstChild,lastChild); // update coordiantes
+				el.style.top=position.top+'px';
+				el.style.left=position.left+'px';
+				height = Math.max(height,Math.abs(position.top));
+				width = Math.max(width,Math.abs(position.left));
+				return {el:el,span:span,left:position.left,top:position.top};
+			};
+			function doCreateNodeTree(m,plevel,slevel) {
+				if (!m){return 0;}
+				return doCreateNodeTreeWithEl(m,plevel,slevel,createNode(m));
+			}
+			function reset(el,rootel){el.removeClass();el.html('');el.attr('style','');el.addClass(context.id + ' tree ' + treeContext.orientation+'-tree');if(rootel){$(rootel).addClass('root')}}
+			this.getHeight = function(){return height;};
+			this.getWidth = function(){return width;};
+			this.createNodeTree = function(m,plevel,slevel,el){reset($(containerEl),el);return el?doCreateNodeTreeWithEl(m,plevel,slevel,el):doCreateNodeTree(m,plevel,slevel)};
+			return this;
+		};
+	}
+	var familyTree = new  Tree({
+		data: [
+				[1,2, 3, 'Bhavesh'],
+				[18,1, 22, 'B-baby'],
+				[3,null, null, 'Mrudula'],
+				[4,null, null, 'Ketan'],
+				[5,2, 3, 'Jinisha'],
+				[6,4, 5, 'Rina'],
+				[7,4, 5, 'Neha'],
+				[8,4, 5, 'Ritika'],
+				[9,19, null, 'Naranji'],
+				[2,9, 21, 'Dilip'],
+				[10,9,21, 'Jaman'],
+
+				[11,9,21, 'Hemalatha'],
+				[12,9,21, 'Kala'],
+				[14,11,null, 'Dharmesh'],
+				[13,11,null, 'Raju'],
+
+				[15,11,null, 'Dinesh'],
+				[16,13,null, 'Bhavini'],
+				[17,13,null, 'Tina'],
+				[19,null,null, 'N_Father'],
+				[20,19,null, 'N_Brother'],
+				[21,null,null, 'Zaver'],
+				[22,null,null, 'Neha Mami']
+		],
+		id:'family', margin:20, el_height:20 , el_width:100, orientation:'horizontal',
+		createNodeElement : function(member) {
+			var el = document.createElement('div');
+			$(el).html(member[3] + '(' + member[0] + ')');
+			return el;
+		}
+	});	
+	var orientationEl = $('input[name="orientation"]');
+	var createTree = function(){familyTree.setOrientation($('input[name="orientation"]:checked').val());familyTree.create($('#showTreeInput').val());$('#showTreeInput').select();}
+	$('#showTreeInput').change(createTree);
+	orientationEl.click(createTree);
+	$('#showTreeInput').change();
+});
+</script>
+</head>
+
+<body>
+	<input id="showTreeInput" type="text" value="5"/>
+	<input type="radio" name="orientation" value="vertical" checked="checked"/> Vertical 
+	<input type="radio" name="orientation" value="horizontal" /> Horizontal
+	<div id="family" style="position:relative;">
+		<div id="family_ancestors" class=""></div>
+		<div id="family_descendants" class=""></div>
+	</div>
+</body>
+</html>
