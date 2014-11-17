@@ -7,23 +7,23 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 @SuppressWarnings("serial")
 public class RetrieveSingleMemberAction implements Action<MemberWithImmediateRelations>, IsSerializable {
 
-    private Long memberId;
+	private Long memberId;
 
-    @Deprecated
-    public RetrieveSingleMemberAction() {
-        this(0l);
-    }
+	@Deprecated
+	public RetrieveSingleMemberAction() {
+		this(0l);
+	}
 
-    public RetrieveSingleMemberAction(Long memberId) {
-        super();
-        this.memberId = memberId;
-    }
+	public RetrieveSingleMemberAction(Long memberId) {
+		super();
+		this.memberId = memberId;
+	}
 
-    /**
-     * @return the memberLookupQuery
-     */
-    public Long getMemberId() {
-        return memberId;
-    }
+	/**
+	 * @return the memberLookupQuery
+	 */
+	public Long getMemberId() {
+		return memberId;
+	}
 
 }

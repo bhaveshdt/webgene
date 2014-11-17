@@ -6,5 +6,5 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public interface ActionHandlerServiceAsync {
 
-    <R extends Result> void execute(Action<R> action, AsyncCallback<R> callback);
+	<R extends Result> void execute(Action<R> action, AsyncCallback<R> callback);
 }

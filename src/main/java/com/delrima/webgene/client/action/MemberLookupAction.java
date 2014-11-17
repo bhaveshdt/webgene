@@ -7,23 +7,23 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 @SuppressWarnings("serial")
 public class MemberLookupAction implements Action<MemberLookupResult>, IsSerializable {
 
-    private String memberLookupQuery;
+	private String memberLookupQuery;
 
-    @Deprecated
-    public MemberLookupAction() {
-        this("");
-    }
+	@Deprecated
+	public MemberLookupAction() {
+		this("");
+	}
 
-    public MemberLookupAction(String memberLookupQuery) {
-        super();
-        this.memberLookupQuery = memberLookupQuery;
-    }
+	public MemberLookupAction(String memberLookupQuery) {
+		super();
+		this.memberLookupQuery = memberLookupQuery;
+	}
 
-    /**
-     * @return the memberLookupQuery
-     */
-    public String getMemberLookupQuery() {
-        return memberLookupQuery;
-    }
+	/**
+	 * @return the memberLookupQuery
+	 */
+	public String getMemberLookupQuery() {
+		return memberLookupQuery;
+	}
 
 }

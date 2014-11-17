@@ -13,57 +13,57 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class MemberListPlace extends AbstractView {
 
-    private Label status = new Label("Status: ");
-    private ManagedPopupPanel managedAddMemberPopup;
-    private Panel memberPanel;
-    private VerticalPanel memberListPanel;
+	private Label status = new Label("Status: ");
+	private ManagedPopupPanel managedAddMemberPopup;
+	private Panel memberPanel;
+	private VerticalPanel memberListPanel;
 
-    @Override
-    public Panel createWidget() {
-        Panel mainPanel = new FlowPanel();
-        memberPanel = new FlowPanel();
+	@Override
+	public Panel createWidget() {
+		Panel mainPanel = new FlowPanel();
+		memberPanel = new FlowPanel();
 
-        Button addMemberButton = new Button("Add Member");
-        addMemberButton.addClickHandler(new ClickHandler() {
+		Button addMemberButton = new Button("Add Member");
+		addMemberButton.addClickHandler(new ClickHandler() {
 
-            public void onClick(ClickEvent event) {
-                memberPanel.clear();
-                // memberPanel.add(new MemberEditWidget());
-                managedAddMemberPopup.showWithAutoPositioning();
-            }
-        });
-        managedAddMemberPopup = new ManagedPopupPanel(addMemberButton, memberPanel, FEATURE.AUTO_HIDE, FEATURE.CLOSABLE_BUTTON_TOP);
-        mainPanel.add(status);
-        mainPanel.add(managedAddMemberPopup);
-        memberListPanel = new VerticalPanel();
-        mainPanel.add(memberListPanel);
+			public void onClick(ClickEvent event) {
+				memberPanel.clear();
+				// memberPanel.add(new MemberEditWidget());
+				managedAddMemberPopup.showWithAutoPositioning();
+			}
+		});
+		managedAddMemberPopup = new ManagedPopupPanel(addMemberButton, memberPanel, FEATURE.AUTO_HIDE, FEATURE.CLOSABLE_BUTTON_TOP);
+		mainPanel.add(status);
+		mainPanel.add(managedAddMemberPopup);
+		memberListPanel = new VerticalPanel();
+		mainPanel.add(memberListPanel);
 
-        getMembersDescendantsViaRPC();
-        return mainPanel;
-    }
+		getMembersDescendantsViaRPC();
+		return mainPanel;
+	}
 
-    private void getMembersDescendantsViaRPC() {
-        /*
-         * WebGeneServiceAsync.Util.INSTANCE.getMemberDescendants(1, new AsyncCallback<List<Member>>() {
-         * 
-         * public void onFailure(Throwable caught) { // TODO Auto-generated method stub
-         * 
-         * }
-         * 
-         * public void onSuccess(List<Member> result) { displayMembers(result); }
-         * 
-         * });
-         */
-    }
+	private void getMembersDescendantsViaRPC() {
+		/*
+		 * WebGeneServiceAsync.Util.INSTANCE.getMemberDescendants(1, new AsyncCallback<List<Member>>() {
+		 * 
+		 * public void onFailure(Throwable caught) { // TODO Auto-generated method stub
+		 * 
+		 * }
+		 * 
+		 * public void onSuccess(List<Member> result) { displayMembers(result); }
+		 * 
+		 * });
+		 */
+	}
 
-    /*
-     * private void displayMembers(List<Member> members) { for (final Member m : members ) { displayMember(m); } } private void
-     * displayMember(Member m) { memberListPanel.add(new Label(m.getFirstname() + " " + m.getLastname())); }
-     */
+	/*
+	 * private void displayMembers(List<Member> members) { for (final Member m : members ) { displayMember(m); } } private void displayMember(Member m) { memberListPanel.add(new
+	 * Label(m.getFirstname() + " " + m.getLastname())); }
+	 */
 
-    public void process() {
-        // TODO Auto-generated method stub
+	public void process() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
 }

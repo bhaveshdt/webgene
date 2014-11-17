@@ -19,19 +19,20 @@ public class HierarchicalTreeWidgetCreator extends AbstractTreeCreator {
 
 	private final Panel panel = new VerticalPanel();
 	private final Tree familyTree = new Tree();
-	
+
 	public HierarchicalTreeWidgetCreator() {
 		panel.add(familyTree);
 	}
+
 	/**
 	 * <p>
 	 * Recursively adds all children to tree widget
 	 * </p>
 	 * 
 	 * @param memberMap
-	 *          - easy access to all members
+	 *            - easy access to all members
 	 * @param parentChildRelationBean
-	 *          - tree of member objects to be converted to tree of member widgets
+	 *            - tree of member objects to be converted to tree of member widgets
 	 * @return
 	 */
 
@@ -54,7 +55,7 @@ public class HierarchicalTreeWidgetCreator extends AbstractTreeCreator {
 		familyTree.addItem(new RecursiveMemberTreeIterator<TreeItem>(action).visitAncestors(rootMember));
 
 	}
-	
+
 	public void create(final HasDescendants rootMember) {
 
 		familyTree.setVisible(true);

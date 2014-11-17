@@ -13,20 +13,20 @@ import com.google.gwt.user.client.ui.Panel;
  */
 public class WebGenePlace extends AbstractView {
 
-    private final WebgeneWidgetGinjector injector = GWT.create(WebgeneWidgetGinjector.class);
+	private final WebgeneWidgetGinjector injector = GWT.create(WebgeneWidgetGinjector.class);
 
-    @Override
-    public Panel createWidget() {
-        Panel mainPanel = new FlowPanel();
+	@Override
+	public Panel createWidget() {
+		Panel mainPanel = new FlowPanel();
 
-        final MemberTreePresenter appPresenter = injector.getFamilyTreePresenter();
-        appPresenter.go(mainPanel);
+		final MemberTreePresenter appPresenter = injector.getFamilyTreePresenter();
+		appPresenter.go(mainPanel);
 
-        return mainPanel;
-    }
+		return mainPanel;
+	}
 
-    public void process() {
+	public void process() {
 
-    }
+	}
 
 }

@@ -18,24 +18,24 @@ import com.google.gwt.user.client.ui.Panel;
  */
 public abstract class AbstractView extends LazyPanel implements View {
 
-    private final Panel initPanel;
-    protected final Panel viewPanel;
+	private final Panel initPanel;
+	protected final Panel viewPanel;
 
-    public AbstractView() {
-        initPanel = WidgetUtils.createFlowPanel();
-        viewPanel = WidgetUtils.createFlowPanel();
-        initPanel.add(viewPanel);
-    }
+	public AbstractView() {
+		initPanel = WidgetUtils.createFlowPanel();
+		viewPanel = WidgetUtils.createFlowPanel();
+		initPanel.add(viewPanel);
+	}
 
-    /**
-     * <p>
-     * See {@link #setviewPanel(Panel)}
-     * </p>
-     * 
-     * @return Returns the viewPanel.
-     */
-    public Panel getViewPanel() {
-        return viewPanel;
-    }
+	/**
+	 * <p>
+	 * See {@link #setviewPanel(Panel)}
+	 * </p>
+	 * 
+	 * @return Returns the viewPanel.
+	 */
+	public Panel getViewPanel() {
+		return viewPanel;
+	}
 
 }

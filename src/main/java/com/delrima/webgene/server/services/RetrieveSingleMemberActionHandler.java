@@ -19,29 +19,29 @@ import com.delrima.webgene.client.model.MemberWithImmediateRelations;
  */
 public class RetrieveSingleMemberActionHandler extends AbstractWebgeneActionHandler implements SingleActionHandler<RetrieveSingleMemberAction, MemberWithImmediateRelations> {
 
-    @Inject
-    public RetrieveSingleMemberActionHandler(MemberTreeDataProvider dataProvider) {
-        super(dataProvider);
-    }
+	@Inject
+	public RetrieveSingleMemberActionHandler(MemberTreeDataProvider dataProvider) {
+		super(dataProvider);
+	}
 
-    public MemberWithImmediateRelations execute(RetrieveSingleMemberAction action) throws ActionException {
+	public MemberWithImmediateRelations execute(RetrieveSingleMemberAction action) throws ActionException {
 
-        MemberWithImmediateRelations result = null;
-        try {
-            Member member = getDataProvider().retrieveMemberById(action.getMemberId());
-            Member father = getDataProvider().retrieveMemberById(member.getFatherid());
-            Member mother = getDataProvider().retrieveMemberById(member.getMotherid());
-            Member spouse = getDataProvider().retrieveMemberById(member.getSpouseid());
-            Set<Member> children = this.getDataProvider().retrieveChildren(action.getMemberId());
-            result = new MemberWithImmediateRelations(member, father, mother, spouse, children);
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+		MemberWithImmediateRelations result = null;
+		try {
+			Member member = getDataProvider().retrieveMemberById(action.getMemberId());
+			Member father = getDataProvider().retrieveMemberById(member.getFatherid());
+			Member mother = getDataProvider().retrieveMemberById(member.getMotherid());
+			Member spouse = getDataProvider().retrieveMemberById(member.getSpouseid());
+			Set<Member> children = this.getDataProvider().retrieveChildren(action.getMemberId());
+			result = new MemberWithImmediateRelations(member, father, mother, spouse, children);
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
-    public Class<RetrieveSingleMemberAction> getActionType() {
-        return RetrieveSingleMemberAction.class;
-    }
+	public Class<RetrieveSingleMemberAction> getActionType() {
+		return RetrieveSingleMemberAction.class;
+	}
 
 }

@@ -7,9 +7,9 @@ import com.google.inject.Singleton;
 @Singleton
 public class DefaultEventBus extends HandlerManager {
 
-    @Inject
-    public DefaultEventBus() {
-        super(null);
-    }
+	@Inject
+	public DefaultEventBus() {
+		super(null);
+	}
 
 }

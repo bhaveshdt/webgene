@@ -9,48 +9,48 @@ import com.delrima.webgene.client.model.IsTreeMember;
 
 public final class MemberTreeIteratorTemplateImpl {
 
-    private final MemberRelationDAO<? extends IsTreeMember> dao;
+	private final MemberRelationDAO<? extends IsTreeMember> dao;
 
-    @Inject
-    public MemberTreeIteratorTemplateImpl(final MemberRelationDAO<? extends IsTreeMember> dao) {
-        this.dao = dao;
-    }
+	@Inject
+	public MemberTreeIteratorTemplateImpl(final MemberRelationDAO<? extends IsTreeMember> dao) {
+		this.dao = dao;
+	}
 
-    public Set<IsTreeMember> retrieveDescendants(Long memberId) {
-        Set<IsTreeMember> members = new HashSet<IsTreeMember>();
-        doRetrieveDescendants(memberId, members);
-        return members;
-    }
+	public Set<IsTreeMember> retrieveDescendants(Long memberId) {
+		Set<IsTreeMember> members = new HashSet<IsTreeMember>();
+		doRetrieveDescendants(memberId, members);
+		return members;
+	}
 
-    private void doRetrieveDescendants(Long memberId, Set<IsTreeMember> members) {
-        if (memberId == null) {
-            return;
-        }
+	private void doRetrieveDescendants(Long memberId, Set<IsTreeMember> members) {
+		if (memberId == null) {
+			return;
+		}
 
-        members.add(dao.retrieveMemberById(memberId));
-        Set<? extends IsTreeMember> children = dao.retrieveChildren(memberId);
+		members.add(dao.retrieveMemberById(memberId));
+		Set<? extends IsTreeMember> children = dao.retrieveChildren(memberId);
 
-        for (IsTreeMember m : children) {
-            doRetrieveDescendants(m.getId(), members);
-        }
-    }
+		for (IsTreeMember m : children) {
+			doRetrieveDescendants(m.getId(), members);
+		}
+	}
 
-    public Set<IsTreeMember> retrieveAncestor(Long memberId) {
-        Set<IsTreeMember> members = new HashSet<IsTreeMember>();
-        doRetrieveAncestor(memberId, members);
-        return members;
-    }
+	public Set<IsTreeMember> retrieveAncestor(Long memberId) {
+		Set<IsTreeMember> members = new HashSet<IsTreeMember>();
+		doRetrieveAncestor(memberId, members);
+		return members;
+	}
 
-    private void doRetrieveAncestor(Long memberId, Set<IsTreeMember> members) {
-        if (memberId == null) {
-            return;
-        }
+	private void doRetrieveAncestor(Long memberId, Set<IsTreeMember> members) {
+		if (memberId == null) {
+			return;
+		}
 
-        IsTreeMember member = dao.retrieveMemberById(memberId);
-        members.add(member);
+		IsTreeMember member = dao.retrieveMemberById(memberId);
+		members.add(member);
 
-        doRetrieveAncestor(member.getFatherid(), members);
-        doRetrieveAncestor(member.getMotherid(), members);
+		doRetrieveAncestor(member.getFatherid(), members);
+		doRetrieveAncestor(member.getMotherid(), members);
 
-    }
+	}
 }

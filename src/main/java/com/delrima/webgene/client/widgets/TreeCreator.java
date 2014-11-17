@@ -9,15 +9,15 @@ import com.google.gwt.user.client.ui.Widget;
 
 public interface TreeCreator {
 
-    void create(final HasAncestors rootMember);
+	void create(final HasAncestors rootMember);
 
-    void create(final HasDescendants rootMember);
-    
-    void addSelectionHandler(Command<IsTreeMember> command);
+	void create(final HasDescendants rootMember);
 
-    TreeViewType getType();
+	void addSelectionHandler(Command<IsTreeMember> command);
 
-    Widget getWidget();
+	TreeViewType getType();
 
-    Element getSelectedElement();
+	Widget getWidget();
+
+	Element getSelectedElement();
 }

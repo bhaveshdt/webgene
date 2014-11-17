@@ -15,27 +15,27 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class PersistenceJPAConfiguration {
 
-    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("transactions-optional");
+	private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("transactions-optional");
 
-    @Bean
-    public EntityManagerFactory entityManagerFactory() {
-        return entityManagerFactory;
-    }
+	@Bean
+	public EntityManagerFactory entityManagerFactory() {
+		return entityManagerFactory;
+	}
 
-    @Bean
-    public EntityManager entityManager() {
-        return entityManagerFactory.createEntityManager();
-    }
+	@Bean
+	public EntityManager entityManager() {
+		return entityManagerFactory.createEntityManager();
+	}
 
-    @Bean
-    public PlatformTransactionManager transactionManager() {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(entityManagerFactory);
-        return transactionManager;
-    }
+	@Bean
+	public PlatformTransactionManager transactionManager() {
+		JpaTransactionManager transactionManager = new JpaTransactionManager();
+		transactionManager.setEntityManagerFactory(entityManagerFactory);
+		return transactionManager;
+	}
 
-    @Bean
-    public PersistenceAnnotationBeanPostProcessor persistenceAnnotationBeanPostProcessor() {
-        return new PersistenceAnnotationBeanPostProcessor();
-    }
+	@Bean
+	public PersistenceAnnotationBeanPostProcessor persistenceAnnotationBeanPostProcessor() {
+		return new PersistenceAnnotationBeanPostProcessor();
+	}
 }

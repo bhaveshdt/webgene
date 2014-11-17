@@ -9,11 +9,11 @@ import com.google.gwt.event.shared.EventHandler;
  */
 public interface RetrieveTreeSearchMembersEventHandler extends EventHandler {
 
-    /**
-     * <p>
-     * </p>
-     * 
-     * @param event
-     */
-    void onTreeSearchMemberRetrieveRequest(RetrieveTreeSearchMembersEvent event);
+	/**
+	 * <p>
+	 * </p>
+	 * 
+	 * @param event
+	 */
+	void onTreeSearchMemberRetrieveRequest(RetrieveTreeSearchMembersEvent event);
 }

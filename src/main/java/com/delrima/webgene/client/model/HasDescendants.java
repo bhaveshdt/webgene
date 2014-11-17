@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface HasDescendants extends HasTreeMember {
 
-    List<HasDescendants> getChildren();
+	List<HasDescendants> getChildren();
 
 }

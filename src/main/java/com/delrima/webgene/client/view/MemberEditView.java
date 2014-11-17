@@ -7,29 +7,29 @@ import com.delrima.webgene.client.model.MemberWithImmediateRelations;
 
 public interface MemberEditView extends ModelBinder<MemberWithImmediateRelations> {
 
-    interface Presenter extends RetrieveMemberLookupResultEventHandler {
+	interface Presenter extends RetrieveMemberLookupResultEventHandler {
 
-        public static final Integer LOOKUP_MINIMUM_CHAR_COUNT = 2;
+		public static final Integer LOOKUP_MINIMUM_CHAR_COUNT = 2;
 
-        void persistMemberChange();
+		void persistMemberChange();
 
-        void showAddMember();
+		void showAddMember();
 
-        void showAddChild(MemberWithImmediateRelations parentMember);
+		void showAddChild(MemberWithImmediateRelations parentMember);
 
-        void showAddParent(MemberWithImmediateRelations childMember);
+		void showAddParent(MemberWithImmediateRelations childMember);
 
-        void showEditMember(MemberWithImmediateRelations selectedMember);
+		void showEditMember(MemberWithImmediateRelations selectedMember);
 
-        void deleteMember(IsTreeMember selectedMember);
-    }
+		void deleteMember(IsTreeMember selectedMember);
+	}
 
-    void setPresenter(Presenter presenter);
+	void setPresenter(Presenter presenter);
 
-    void clearMemberEditData();
+	void clearMemberEditData();
 
-    void displayErrorMessage(String errorMessage);
+	void displayErrorMessage(String errorMessage);
 
-    void clearErrorMessage();
+	void clearErrorMessage();
 
 }

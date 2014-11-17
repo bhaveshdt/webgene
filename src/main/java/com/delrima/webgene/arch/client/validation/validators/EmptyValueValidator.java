@@ -13,17 +13,17 @@ import com.delrima.webgene.arch.client.validation.Validator;
  */
 public class EmptyValueValidator implements Validator {
 
-    public static final EmptyValueValidator INSTANCE = new EmptyValueValidator();
+	public static final EmptyValueValidator INSTANCE = new EmptyValueValidator();
 
-    /** Creates a new instance of DoubleValidator */
-    private EmptyValueValidator() {
-    }
+	/** Creates a new instance of DoubleValidator */
+	private EmptyValueValidator() {
+	}
 
-    public boolean isValid(Object value) {
-        if (value == null || value.toString().equals("")) {
-            return false;
-        }
-        return true;
-    }
+	public boolean isValid(Object value) {
+		if (value == null || value.toString().equals("")) {
+			return false;
+		}
+		return true;
+	}
 
 }

@@ -9,18 +9,18 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface MemCacheable {
 
-    /**
-     * If specified, group name is used as a part of caching key instead of method signature.
-     */
-    String group() default "";
+	/**
+	 * If specified, group name is used as a part of caching key instead of method signature.
+	 */
+	String group() default "";
 
-    /**
-     * Determines cache provider. If not specified, group name will be used for cache provider lookup.
-     */
-    String cache() default "";
+	/**
+	 * Determines cache provider. If not specified, group name will be used for cache provider lookup.
+	 */
+	String cache() default "";
 
-    /**
-     * Defines expiration for some seconds in the future. Specified value overrides expiration time set by cache provider.
-     */
-    int expirationSeconds() default 0;
+	/**
+	 * Defines expiration for some seconds in the future. Specified value overrides expiration time set by cache provider.
+	 */
+	int expirationSeconds() default 0;
 }

@@ -15,22 +15,22 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 @SuppressWarnings("serial")
 public class ActionHandlerServiceServlet extends RemoteServiceServlet implements ActionHandlerService<Result> {
 
-    private ActionHandlerService<Result> dispatchService;
+	private ActionHandlerService<Result> dispatchService;
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void init() throws ServletException {
-        // initialize super class
-        super.init();
+	@SuppressWarnings("unchecked")
+	@Override
+	public void init() throws ServletException {
+		// initialize super class
+		super.init();
 
-        // retrieve dispatch service dependency
-        WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
-        this.dispatchService = context.getBean(ActionHandlerServiceImpl.class);
-    }
+		// retrieve dispatch service dependency
+		WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+		this.dispatchService = context.getBean(ActionHandlerServiceImpl.class);
+	}
 
-    @Override
-    public Result execute(Action<Result> action) throws ActionException {
-        return dispatchService.execute(action);
-    }
+	@Override
+	public Result execute(Action<Result> action) throws ActionException {
+		return dispatchService.execute(action);
+	}
 
 }

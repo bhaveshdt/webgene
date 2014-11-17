@@ -24,26 +24,26 @@ import com.delrima.webgene.client.result.MemberLookupResult;
  */
 public class MemberLookupActionHandler extends AbstractWebgeneActionHandler implements SingleActionHandler<MemberLookupAction, MemberLookupResult> {
 
-    private final static Logger logger = LoggerFactory.getLogger(MemberLookupActionHandler.class);
+	private final static Logger logger = LoggerFactory.getLogger(MemberLookupActionHandler.class);
 
-    @Inject
-    public MemberLookupActionHandler(MemberTreeDataProvider dataProvider) {
-        super(dataProvider);
-    }
+	@Inject
+	public MemberLookupActionHandler(MemberTreeDataProvider dataProvider) {
+		super(dataProvider);
+	}
 
-    public MemberLookupResult execute(MemberLookupAction action) throws ActionException {
+	public MemberLookupResult execute(MemberLookupAction action) throws ActionException {
 
-        List<Member> members = new ArrayList<Member>();
-        try {
-            members = getDataProvider().retrieveMembersByName(action.getMemberLookupQuery());
-        } catch (DataAccessException e) {
-            logger.error("", e);
-        }
-        return new MemberLookupResult(new HashSet<IsTreeMember>(members));
-    }
+		List<Member> members = new ArrayList<Member>();
+		try {
+			members = getDataProvider().retrieveMembersByName(action.getMemberLookupQuery());
+		} catch (DataAccessException e) {
+			logger.error("", e);
+		}
+		return new MemberLookupResult(new HashSet<IsTreeMember>(members));
+	}
 
-    public Class<MemberLookupAction> getActionType() {
-        return MemberLookupAction.class;
-    }
+	public Class<MemberLookupAction> getActionType() {
+		return MemberLookupAction.class;
+	}
 
 }

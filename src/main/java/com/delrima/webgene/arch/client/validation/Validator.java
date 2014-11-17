@@ -11,5 +11,5 @@ package com.delrima.webgene.arch.client.validation;
  */
 public interface Validator {
 
-    public boolean isValid(Object value);
+	public boolean isValid(Object value);
 }

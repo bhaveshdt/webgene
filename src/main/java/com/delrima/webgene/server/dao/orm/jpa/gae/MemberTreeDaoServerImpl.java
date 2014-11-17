@@ -30,119 +30,119 @@ import com.delrima.webgene.client.dto.Member;
 @Named("gaeDao")
 public class MemberTreeDaoServerImpl implements MemberTreeDAO {
 
-    @PersistenceContext
-    private final EntityManager entityManager;
+	@PersistenceContext
+	private final EntityManager entityManager;
 
-    @Inject
-    public MemberTreeDaoServerImpl(EntityManager entityManager) {
-        super();
-        this.entityManager = entityManager;
-    }
+	@Inject
+	public MemberTreeDaoServerImpl(EntityManager entityManager) {
+		super();
+		this.entityManager = entityManager;
+	}
 
-    public Contact retrieveContactById(Long id) {
-        Contact contact = entityManager.find(Contact.class, id);
-        detach(contact);
-        return contact;
-    }
+	public Contact retrieveContactById(Long id) {
+		Contact contact = entityManager.find(Contact.class, id);
+		detach(contact);
+		return contact;
+	}
 
-    private Member retrieveAttachedMemberById(Long id) {
-        return this.entityManager.find(Member.class, id);
-    }
+	private Member retrieveAttachedMemberById(Long id) {
+		return this.entityManager.find(Member.class, id);
+	}
 
-    public Member retrieveMemberById(Long id) {
-        Member member = entityManager.find(Member.class, id);
-        detach(member);
-        return member;
-    }
+	public Member retrieveMemberById(Long id) {
+		Member member = entityManager.find(Member.class, id);
+		detach(member);
+		return member;
+	}
 
-    void detach(Object entity) {
-        this.entityManager.flush();
-        this.entityManager.detach(entity);
-    }
+	void detach(Object entity) {
+		this.entityManager.flush();
+		this.entityManager.detach(entity);
+	}
 
-    public Member updateMember(Member member) {
-        this.entityManager.merge(member);
-        this.detach(member);
-        return member;
-    }
+	public Member updateMember(Member member) {
+		this.entityManager.merge(member);
+		this.detach(member);
+		return member;
+	}
 
-    public Member addMember(Member newMember) {
-        this.entityManager.persist(newMember);
-        this.entityManager.merge(newMember);
-        detach(newMember);
-        return newMember;
-    }
+	public Member addMember(Member newMember) {
+		this.entityManager.persist(newMember);
+		this.entityManager.merge(newMember);
+		detach(newMember);
+		return newMember;
+	}
 
-    public void deleteMember(Long id) {
-        Member member = this.retrieveAttachedMemberById(id);
-        this.entityManager.remove(member);
-        this.entityManager.refresh(member);
-    }
+	public void deleteMember(Long id) {
+		Member member = this.retrieveAttachedMemberById(id);
+		this.entityManager.remove(member);
+		this.entityManager.refresh(member);
+	}
 
-    public Contact addContact(Contact contact) {
-        this.entityManager.persist(contact);
-        this.entityManager.merge(contact);
-        detach(contact);
-        return contact;
-    }
+	public Contact addContact(Contact contact) {
+		this.entityManager.persist(contact);
+		this.entityManager.merge(contact);
+		detach(contact);
+		return contact;
+	}
 
-    @SuppressWarnings("unchecked")
-    public java.util.List<Member> retrieveMembersByName(String name) {
-        Query query = entityManager.createQuery("SELECT o FROM Member o WHERE o.firstname >= :nameStart and o.firstname < :nameEnd ORDER BY o.firstname");
-        query.setParameter("nameStart", name);
-        query.setParameter("nameEnd", name + "\ufffd");
-        List<Member> result = query.getResultList();
+	@SuppressWarnings("unchecked")
+	public java.util.List<Member> retrieveMembersByName(String name) {
+		Query query = entityManager.createQuery("SELECT o FROM Member o WHERE o.firstname >= :nameStart and o.firstname < :nameEnd ORDER BY o.firstname");
+		query.setParameter("nameStart", name);
+		query.setParameter("nameEnd", name + "\ufffd");
+		List<Member> result = query.getResultList();
 
-        for (Member m : result) {
-            detach(m);
-        }
+		for (Member m : result) {
+			detach(m);
+		}
 
-        return result;
-    }
+		return result;
+	}
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public Set<Member> retrieveChildren(Long id) {
-        Set<Member> childrenResult = new HashSet<Member>();
-        {
-            Query query = entityManager.createQuery("SELECT o FROM Member o WHERE o.motherid = :parentId");
-            query.setParameter("parentId", id);
-            List<Member> members = query.getResultList();
-            if (members != null) {
-                childrenResult.addAll(members);
-                // detach
-                for (Member member : members) {
-                    detach(member);
-                }
-            }
-        }
-        {
-            Query query = entityManager.createQuery("SELECT o FROM Member o WHERE o.fatherid = :parentId");
-            query.setParameter("parentId", id);
-            List<Member> members = query.getResultList();
-            if (members != null) {
-                childrenResult.addAll(members);
-                // detach
-                for (Member member : members) {
-                    detach(member);
-                }
-            }
-        }
-        return childrenResult;
-    }
+	@SuppressWarnings("unchecked")
+	@Override
+	public Set<Member> retrieveChildren(Long id) {
+		Set<Member> childrenResult = new HashSet<Member>();
+		{
+			Query query = entityManager.createQuery("SELECT o FROM Member o WHERE o.motherid = :parentId");
+			query.setParameter("parentId", id);
+			List<Member> members = query.getResultList();
+			if (members != null) {
+				childrenResult.addAll(members);
+				// detach
+				for (Member member : members) {
+					detach(member);
+				}
+			}
+		}
+		{
+			Query query = entityManager.createQuery("SELECT o FROM Member o WHERE o.fatherid = :parentId");
+			query.setParameter("parentId", id);
+			List<Member> members = query.getResultList();
+			if (members != null) {
+				childrenResult.addAll(members);
+				// detach
+				for (Member member : members) {
+					detach(member);
+				}
+			}
+		}
+		return childrenResult;
+	}
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<Member> retrieveAllMembers() {
-        Query query = entityManager.createQuery("SELECT o FROM Member o");
-        List<Member> result = query.getResultList();
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Member> retrieveAllMembers() {
+		Query query = entityManager.createQuery("SELECT o FROM Member o");
+		List<Member> result = query.getResultList();
 
-        for (Member m : result) {
-            detach(m);
-        }
+		for (Member m : result) {
+			detach(m);
+		}
 
-        return result;
+		return result;
 
-    }
+	}
 
 }

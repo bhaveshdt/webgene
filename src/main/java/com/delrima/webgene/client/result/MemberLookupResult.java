@@ -13,26 +13,26 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 @SuppressWarnings("serial")
 public class MemberLookupResult implements Result, IsSerializable {
 
-    private HashSet<IsTreeMember> members;
+	private HashSet<IsTreeMember> members;
 
-    /**
-     * For GWT Serialization
-     */
-    public MemberLookupResult() {
-        this(new HashSet<IsTreeMember>());
-    }
+	/**
+	 * For GWT Serialization
+	 */
+	public MemberLookupResult() {
+		this(new HashSet<IsTreeMember>());
+	}
 
-    public MemberLookupResult(HashSet<IsTreeMember> members) {
-        super();
-        this.members = members;
-    }
+	public MemberLookupResult(HashSet<IsTreeMember> members) {
+		super();
+		this.members = members;
+	}
 
-    public HashSet<IsTreeMember> getMembers() {
-        return members;
-    }
+	public HashSet<IsTreeMember> getMembers() {
+		return members;
+	}
 
-    public void setMembers(HashSet<IsTreeMember> members) {
-        this.members = members;
-    }
+	public void setMembers(HashSet<IsTreeMember> members) {
+		this.members = members;
+	}
 
 }

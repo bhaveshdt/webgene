@@ -20,27 +20,27 @@ import com.google.inject.Singleton;
  */
 public class WebgeneClientInjectionModule extends AbstractGinModule {
 
-    protected void configure() {
-        // Multibinder<TreeCreator> actionBinder = Multibinder.newSetBinder(binder(), TreeCreator.class);
-        // actionBinder.addBinding().to(OrgChartTreeCreator.class);
-        // actionBinder.addBinding().to(HierarchicalTreeCreator.class);
+	protected void configure() {
+		// Multibinder<TreeCreator> actionBinder = Multibinder.newSetBinder(binder(), TreeCreator.class);
+		// actionBinder.addBinding().to(OrgChartTreeCreator.class);
+		// actionBinder.addBinding().to(HierarchicalTreeCreator.class);
 
-        // Presenter
-        bind(MemberTreePresenter.class).in(Singleton.class);
-        bind(MemberEditPresenter.class).in(Singleton.class);
+		// Presenter
+		bind(MemberTreePresenter.class).in(Singleton.class);
+		bind(MemberEditPresenter.class).in(Singleton.class);
 
-        // View
-        bind(MemberTreeView.class).to(MemberTreeViewImpl.class).in(Singleton.class);
-        bind(MemberEditView.class).to(MemberEditViewImpl.class).in(Singleton.class);
-        bind(ContactEditWidget.class).in(Singleton.class);
-        bind(TreeInterfaceCreatorService.class).in(Singleton.class);
+		// View
+		bind(MemberTreeView.class).to(MemberTreeViewImpl.class).in(Singleton.class);
+		bind(MemberEditView.class).to(MemberEditViewImpl.class).in(Singleton.class);
+		bind(ContactEditWidget.class).in(Singleton.class);
+		bind(TreeInterfaceCreatorService.class).in(Singleton.class);
 
-        // Lookup Oracle
-        bind(MemberLookupSuggestOracle.class).in(Singleton.class);
+		// Lookup Oracle
+		bind(MemberLookupSuggestOracle.class).in(Singleton.class);
 
-        // Event Bus
-        bind(HandlerManager.class).to(DefaultEventBus.class).in(Singleton.class);
+		// Event Bus
+		bind(HandlerManager.class).to(DefaultEventBus.class).in(Singleton.class);
 
-        bind(ActionHandlerServiceAsync.class).in(Singleton.class);
-    }
+		bind(ActionHandlerServiceAsync.class).in(Singleton.class);
+	}
 }

@@ -7,25 +7,25 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 @SuppressWarnings("serial")
 public class RetrieveDescendantsTreeResult implements Result, IsSerializable {
 
-    private HasDescendants rootMember;
+	private HasDescendants rootMember;
 
-    /**
-     * For GWT Serialization
-     */
-    public RetrieveDescendantsTreeResult() {
-    }
+	/**
+	 * For GWT Serialization
+	 */
+	public RetrieveDescendantsTreeResult() {
+	}
 
-    public RetrieveDescendantsTreeResult(HasDescendants rootMember) {
-        super();
-        this.rootMember = rootMember;
-    }
+	public RetrieveDescendantsTreeResult(HasDescendants rootMember) {
+		super();
+		this.rootMember = rootMember;
+	}
 
-    public HasDescendants getRootMember() {
-        return rootMember;
-    }
+	public HasDescendants getRootMember() {
+		return rootMember;
+	}
 
-    public void setRootMember(HasDescendants familyTreeMembers) {
-        this.rootMember = familyTreeMembers;
-    }
+	public void setRootMember(HasDescendants familyTreeMembers) {
+		this.rootMember = familyTreeMembers;
+	}
 
 }

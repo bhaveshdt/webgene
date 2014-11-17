@@ -16,20 +16,20 @@ import com.google.gwt.resources.client.ImageResource;
  */
 public interface WebGeneImageBundle extends ClientBundle {
 
-    @Source("com/delrima/webgene/images/close.gif")
-    public ImageResource close();
+	@Source("com/delrima/webgene/images/close.gif")
+	public ImageResource close();
 
-    @Source("com/delrima/webgene/images/loading.gif")
-    public ImageResource loading();
+	@Source("com/delrima/webgene/images/loading.gif")
+	public ImageResource loading();
 
-    public class Util {
+	public class Util {
 
-        private static WebGeneImageBundle ib = null;
+		private static WebGeneImageBundle ib = null;
 
-        public static WebGeneImageBundle getInstance() {
-            if (ib == null)
-                ib = (WebGeneImageBundle) GWT.create(WebGeneImageBundle.class);
-            return ib;
-        }
-    }
+		public static WebGeneImageBundle getInstance() {
+			if (ib == null)
+				ib = (WebGeneImageBundle) GWT.create(WebGeneImageBundle.class);
+			return ib;
+		}
+	}
 }

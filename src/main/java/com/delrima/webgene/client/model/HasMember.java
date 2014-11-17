@@ -5,6 +5,6 @@ import com.delrima.webgene.client.dto.Member;
 
 public interface HasMember extends Result {
 
-    Member getMember();
+	Member getMember();
 
 }

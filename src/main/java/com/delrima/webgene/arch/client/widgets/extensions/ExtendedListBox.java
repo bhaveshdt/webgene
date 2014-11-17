@@ -16,37 +16,37 @@ import com.google.gwt.user.client.ui.ListBox;
  */
 public class ExtendedListBox extends ListBox implements HasValue<String> {
 
-    public final String getSelectedValue() {
-        return getValue(getSelectedIndex());
-    }
+	public final String getSelectedValue() {
+		return getValue(getSelectedIndex());
+	}
 
-    public final void setSelectedValue(String value) {
-        if (getItemCount() > 0) {
-            int i = 0;
-            for (i = 0; i < getItemCount(); i++) {
-                if (getValue(i).equals(value)) {
-                    setItemSelected(i, true);
-                    break;
-                }
-            }
+	public final void setSelectedValue(String value) {
+		if (getItemCount() > 0) {
+			int i = 0;
+			for (i = 0; i < getItemCount(); i++) {
+				if (getValue(i).equals(value)) {
+					setItemSelected(i, true);
+					break;
+				}
+			}
 
-        }
-    }
+		}
+	}
 
-    public String getValue() {
-        return this.getSelectedValue();
-    }
+	public String getValue() {
+		return this.getSelectedValue();
+	}
 
-    public void setValue(String value) {
-        this.setSelectedValue(value);
-    }
+	public void setValue(String value) {
+		this.setSelectedValue(value);
+	}
 
-    public void setValue(String value, boolean arg1) {
-        this.setSelectedValue(value);
-    }
+	public void setValue(String value, boolean arg1) {
+		this.setSelectedValue(value);
+	}
 
-    @Deprecated
-    public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> arg0) {
-        return null;
-    }
+	@Deprecated
+	public HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> arg0) {
+		return null;
+	}
 }

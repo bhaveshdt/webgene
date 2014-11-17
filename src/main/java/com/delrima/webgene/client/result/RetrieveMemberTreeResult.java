@@ -10,29 +10,29 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 @SuppressWarnings("serial")
 public class RetrieveMemberTreeResult implements Result, IsSerializable {
 
-    private Set<IsTreeMember> members;
+	private Set<IsTreeMember> members;
 
-    /**
-     * For GWT Serialization
-     */
-    public RetrieveMemberTreeResult() {
-    }
+	/**
+	 * For GWT Serialization
+	 */
+	public RetrieveMemberTreeResult() {
+	}
 
-    public RetrieveMemberTreeResult(Set<IsTreeMember> members) {
-        super();
-        this.members = members;
-    }
+	public RetrieveMemberTreeResult(Set<IsTreeMember> members) {
+		super();
+		this.members = members;
+	}
 
-    public Set<IsTreeMember> getMembers() {
-        return members;
-    }
+	public Set<IsTreeMember> getMembers() {
+		return members;
+	}
 
-    public void setMembers(Set<IsTreeMember> members) {
-        this.members = members;
-    }
-    
-    public static RetrieveMemberTreeResult EMPTY_RESULT(){
-        return new RetrieveMemberTreeResult(new HashSet<IsTreeMember>());
-    }
+	public void setMembers(Set<IsTreeMember> members) {
+		this.members = members;
+	}
+
+	public static RetrieveMemberTreeResult EMPTY_RESULT() {
+		return new RetrieveMemberTreeResult(new HashSet<IsTreeMember>());
+	}
 
 }

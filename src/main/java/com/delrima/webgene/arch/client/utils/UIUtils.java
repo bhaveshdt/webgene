@@ -20,43 +20,43 @@ import com.google.gwt.user.datepicker.client.DateBox;
  */
 public class UIUtils {
 
-    public static Date getValue(DateBox db) {
-        return db.getDatePicker().getValue();
-    }
+	public static Date getValue(DateBox db) {
+		return db.getDatePicker().getValue();
+	}
 
-    public static void setValue(DateBox db, Date date) {
-        db.getDatePicker().setValue(date);
-    }
+	public static void setValue(DateBox db, Date date) {
+		db.getDatePicker().setValue(date);
+	}
 
-    public static String getValue(Label lb) {
-        return lb.getText();
-    }
+	public static String getValue(Label lb) {
+		return lb.getText();
+	}
 
-    public static Boolean getValue(CheckBox lb) {
-        return lb.getValue();
-    }
+	public static Boolean getValue(CheckBox lb) {
+		return lb.getValue();
+	}
 
-    public static String getValue(TextBox lb) {
-        return lb.getText();
-    }
+	public static String getValue(TextBox lb) {
+		return lb.getText();
+	}
 
-    public static String getValue(ListBox lb) {
-        return lb.getItemText(lb.getSelectedIndex());
-    }
+	public static String getValue(ListBox lb) {
+		return lb.getItemText(lb.getSelectedIndex());
+	}
 
-    public static void setValue(ListBox lb, Object iValue) {
-        if (lb.getItemCount() > 0) {
-            String value = String.valueOf(iValue);
-            int listBoxIndex = 0;
-            for (int i = 0; i < lb.getItemCount(); i++) {
-                listBoxIndex = lb.getItemText(i).equals(value) ? i : 0;
-            }
-            lb.setItemSelected(listBoxIndex, true);
-        }
-    }
+	public static void setValue(ListBox lb, Object iValue) {
+		if (lb.getItemCount() > 0) {
+			String value = String.valueOf(iValue);
+			int listBoxIndex = 0;
+			for (int i = 0; i < lb.getItemCount(); i++) {
+				listBoxIndex = lb.getItemText(i).equals(value) ? i : 0;
+			}
+			lb.setItemSelected(listBoxIndex, true);
+		}
+	}
 
-    public static void setValue(HTML html, String htmlContent) {
-        html.setHTML(htmlContent);
-    }
+	public static void setValue(HTML html, String htmlContent) {
+		html.setHTML(htmlContent);
+	}
 
 }

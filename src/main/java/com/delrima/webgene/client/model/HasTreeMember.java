@@ -4,6 +4,6 @@ import com.delrima.webgene.client.common.Result;
 
 public interface HasTreeMember extends Result {
 
-    IsTreeMember getMember();
+	IsTreeMember getMember();
 
 }

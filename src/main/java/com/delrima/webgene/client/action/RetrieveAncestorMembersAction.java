@@ -7,23 +7,23 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 @SuppressWarnings("serial")
 public class RetrieveAncestorMembersAction implements Action<RetrieveAncestorsTreeResult>, IsSerializable {
 
-    private Long parentMemberId;
+	private Long parentMemberId;
 
-    public RetrieveAncestorMembersAction() {
-        this(1l);
-    }
+	public RetrieveAncestorMembersAction() {
+		this(1l);
+	}
 
-    public RetrieveAncestorMembersAction(Long parentMemberId) {
-        super();
-        this.parentMemberId = parentMemberId;
-    }
+	public RetrieveAncestorMembersAction(Long parentMemberId) {
+		super();
+		this.parentMemberId = parentMemberId;
+	}
 
-    public Long getParentMemberId() {
-        return parentMemberId;
-    }
+	public Long getParentMemberId() {
+		return parentMemberId;
+	}
 
-    public void setParentMemberId(Long parentMemberId) {
-        this.parentMemberId = parentMemberId;
-    }
+	public void setParentMemberId(Long parentMemberId) {
+		this.parentMemberId = parentMemberId;
+	}
 
 }

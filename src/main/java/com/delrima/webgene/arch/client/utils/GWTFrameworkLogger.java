@@ -15,13 +15,13 @@ import java.util.logging.Logger;
 
 public class GWTFrameworkLogger {
 
-    public static Logger getCustomLogger(Class<?> clazz) {
-        return Logger.getLogger(getSimpleClassName(clazz));
-    }
+	public static Logger getCustomLogger(Class<?> clazz) {
+		return Logger.getLogger(getSimpleClassName(clazz));
+	}
 
-    private static String getSimpleClassName(Class<?> classType) {
-        int index = classType.getName().lastIndexOf(".") + 1;
-        return classType.getName().substring(index);
-    }
+	private static String getSimpleClassName(Class<?> classType) {
+		int index = classType.getName().lastIndexOf(".") + 1;
+		return classType.getName().substring(index);
+	}
 
 }

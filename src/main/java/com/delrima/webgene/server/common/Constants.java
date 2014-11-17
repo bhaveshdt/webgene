@@ -10,6 +10,6 @@ package com.delrima.webgene.server.common;
  */
 public class Constants {
 
-    // DAO Constants
+	// DAO Constants
 
 }

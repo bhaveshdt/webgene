@@ -5,5 +5,5 @@ import com.delrima.webgene.client.common.Result;
 
 public interface SingleActionHandler<A extends Action<R>, R extends Result> extends ActionHandler<A, R> {
 
-    Class<A> getActionType();
+	Class<A> getActionType();
 }

@@ -11,61 +11,61 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 public interface MemberTreeView {
 
-    interface Presenter extends UpdateActionCompleteEventHandler, RetrieveMemberLookupResultEventHandler {
+	interface Presenter extends UpdateActionCompleteEventHandler, RetrieveMemberLookupResultEventHandler {
 
-        public final Integer LOOKUP_MINIMUM_CHAR_COUNT = 2;
+		public final Integer LOOKUP_MINIMUM_CHAR_COUNT = 2;
 
-        /**
-         * <p>
-         * The command to execute when a member is searched and selected
-         * </p>
-         * 
-         * @param memberId
-         *            - member that is being searched
-         */
-        void onRootMemberSuggestionSelected(IsTreeMember member);
+		/**
+		 * <p>
+		 * The command to execute when a member is searched and selected
+		 * </p>
+		 * 
+		 * @param memberId
+		 *            - member that is being searched
+		 */
+		void onRootMemberSuggestionSelected(IsTreeMember member);
 
-        void onTreeMemberSelected(IsTreeMember member);
+		void onTreeMemberSelected(IsTreeMember member);
 
-        void onDisplayModeSelected();
+		void onDisplayModeSelected();
 
-        void onViewTypeSelected();
+		void onViewTypeSelected();
 
-        void onAddChild();
+		void onAddChild();
 
-        void onEditMember();
+		void onEditMember();
 
-        void onAddParent();
+		void onAddParent();
 
-        void onAddMember();
+		void onAddMember();
 
-        void onDeleteMember();
+		void onDeleteMember();
 
-        void onSelectMember();
+		void onSelectMember();
 
-    }
+	}
 
-    MemberDisplayMode getSelectedDisplayMode();
+	MemberDisplayMode getSelectedDisplayMode();
 
-    TreeViewType getSelectedViewType();
+	TreeViewType getSelectedViewType();
 
-    void renderFamilyTree(HasAncestors ancestors, TreeViewType viewType);
+	void renderFamilyTree(HasAncestors ancestors, TreeViewType viewType);
 
-    void renderFamilyTree(HasDescendants descendants, TreeViewType viewType);
+	void renderFamilyTree(HasDescendants descendants, TreeViewType viewType);
 
-    void showMenuForMember(IsTreeMember member);
+	void showMenuForMember(IsTreeMember member);
 
-    void showMemberEditLayer();
+	void showMemberEditLayer();
 
-    void setPresenter(Presenter presenter);
+	void setPresenter(Presenter presenter);
 
-    void addToContainer(HasWidgets container);
+	void addToContainer(HasWidgets container);
 
-    void displayErrorMessage(String errorMessage);
+	void displayErrorMessage(String errorMessage);
 
-    void clearErrorMessage();
+	void clearErrorMessage();
 
-    void updateRootMember(String name);
+	void updateRootMember(String name);
 
-    void clearTree();
+	void clearTree();
 }

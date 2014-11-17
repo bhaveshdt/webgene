@@ -30,104 +30,104 @@ import com.google.gwt.user.client.ui.RootPanel;
  */
 public abstract class AbstractEntryPoint implements EntryPoint, ValueChangeHandler<String> {
 
-    private static Logger sLogger = GWTFrameworkLogger.getCustomLogger(AbstractEntryPoint.class);
+	private static Logger sLogger = GWTFrameworkLogger.getCustomLogger(AbstractEntryPoint.class);
 
-    protected Map<String, AbstractView> viewInstances = new LinkedHashMap<String, AbstractView>();
-    /**
-     * viewContainer - FlowPanel Container widget for the views
-     */
-    private final transient Panel viewContainer = new FlowPanel();
+	protected Map<String, AbstractView> viewInstances = new LinkedHashMap<String, AbstractView>();
+	/**
+	 * viewContainer - FlowPanel Container widget for the views
+	 */
+	private final transient Panel viewContainer = new FlowPanel();
 
-    protected abstract void populateViewInstances();
+	protected abstract void populateViewInstances();
 
-    /**
-     * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
-     */
-    public final void onModuleLoad() {
+	/**
+	 * @see com.google.gwt.core.client.EntryPoint#onModuleLoad()
+	 */
+	public final void onModuleLoad() {
 
-        RootPanel.get().add(viewContainer);
-        populateViewInstances();
+		RootPanel.get().add(viewContainer);
+		populateViewInstances();
 
-        // store navigation tokens
-        String[] tokensArray = new String[viewInstances.size()];
-        viewInstances.keySet().toArray(tokensArray);
-        ClientSession.getFrameworkContextBean().setApplicationViewTokens(tokensArray);
+		// store navigation tokens
+		String[] tokensArray = new String[viewInstances.size()];
+		viewInstances.keySet().toArray(tokensArray);
+		ClientSession.getFrameworkContextBean().setApplicationViewTokens(tokensArray);
 
-        History.addValueChangeHandler(AbstractEntryPoint.this);
+		History.addValueChangeHandler(AbstractEntryPoint.this);
 
-        doLoadModule();
+		doLoadModule();
 
-        History.fireCurrentHistoryState();
+		History.fireCurrentHistoryState();
 
-    }
+	}
 
-    /**
-     * <p>
-     * The entry point of loading module, all sub class should implement it.
-     * </p>
-     */
-    protected void doLoadModule() {
-        History.fireCurrentHistoryState();
-    }
+	/**
+	 * <p>
+	 * The entry point of loading module, all sub class should implement it.
+	 * </p>
+	 */
+	protected void doLoadModule() {
+		History.fireCurrentHistoryState();
+	}
 
-    /**
-     * This method is called whenever the application's history changes.
-     * 
-     * @param historyToken
-     *            the histrory token
-     */
-    public final void onValueChange(ValueChangeEvent<String> event) {
-        String viewToken = GWTClientUtils.getCurrentViewName();
-        manageViewVisibility(viewToken.toLowerCase());
-    }
+	/**
+	 * This method is called whenever the application's history changes.
+	 * 
+	 * @param historyToken
+	 *            the histrory token
+	 */
+	public final void onValueChange(ValueChangeEvent<String> event) {
+		String viewToken = GWTClientUtils.getCurrentViewName();
+		manageViewVisibility(viewToken.toLowerCase());
+	}
 
-    private AbstractView ensureView(String viewName) {
-        AbstractView view = viewInstances.get(viewName.toUpperCase());
-        if (view != null) {
-            try {
-                view.setVisible(true);
-                viewContainer.add(view);
-                sLogger.fine("Instantiated view: " + view.getClass().getName());
-            } catch (Throwable t) {
-                sLogger.log(Level.SEVERE, "Error instantiating view in ensureView()", t);
-            }
-        }
-        return view;
-    }
+	private AbstractView ensureView(String viewName) {
+		AbstractView view = viewInstances.get(viewName.toUpperCase());
+		if (view != null) {
+			try {
+				view.setVisible(true);
+				viewContainer.add(view);
+				sLogger.fine("Instantiated view: " + view.getClass().getName());
+			} catch (Throwable t) {
+				sLogger.log(Level.SEVERE, "Error instantiating view in ensureView()", t);
+			}
+		}
+		return view;
+	}
 
-    /**
-     * <p>
-     * Manage the visibility for the various views that are part of this module
-     * </p>
-     * 
-     * @param token
-     *            - name of the view to be made visible
-     */
-    private void manageViewVisibility(final String token) {
+	/**
+	 * <p>
+	 * Manage the visibility for the various views that are part of this module
+	 * </p>
+	 * 
+	 * @param token
+	 *            - name of the view to be made visible
+	 */
+	private void manageViewVisibility(final String token) {
 
-        // hide all views
-        for (final AbstractView view : viewInstances.values()) {
-            view.setVisible(false);
-        }
+		// hide all views
+		for (final AbstractView view : viewInstances.values()) {
+			view.setVisible(false);
+		}
 
-        AbstractView view = ensureView(token);
-        if (view != null) {
-            // instantiate, add and show theview
-            view.setVisible(true);
+		AbstractView view = ensureView(token);
+		if (view != null) {
+			// instantiate, add and show theview
+			view.setVisible(true);
 
-            String viewToken = GWTClientUtils.getCurrentViewName();
+			String viewToken = GWTClientUtils.getCurrentViewName();
 
-            sLogger.fine("Execute View.process()");
-            try {
-                view.process();
-            } catch (Throwable t) {
-                sLogger.log(Level.SEVERE, "Error executing view.process();", t);
-            }
+			sLogger.fine("Execute View.process()");
+			try {
+				view.process();
+			} catch (Throwable t) {
+				sLogger.log(Level.SEVERE, "Error executing view.process();", t);
+			}
 
-            // keep track of the views visited by the user
-            ClientSession.getFrameworkContextBean().getNavigationHistory().add(viewToken);
+			// keep track of the views visited by the user
+			ClientSession.getFrameworkContextBean().getNavigationHistory().add(viewToken);
 
-        }
+		}
 
-    }
+	}
 }

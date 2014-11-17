@@ -12,9 +12,9 @@ package com.delrima.webgene.arch.client.validation;
 @SuppressWarnings("serial")
 public class ValidationException extends Exception {
 
-    /** Creates a new instance of ValidationException */
-    public ValidationException(String message) {
-        super(message);
-    }
+	/** Creates a new instance of ValidationException */
+	public ValidationException(String message) {
+		super(message);
+	}
 
 }

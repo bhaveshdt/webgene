@@ -12,23 +12,23 @@ import com.delrima.webgene.client.rpc.ActionHandlerService;
 
 public class ActionHandlerServiceImpl<R extends Result> implements ActionHandlerService<R> {
 
-    private Map<Class<Action<R>>, SingleActionHandler<Action<R>, R>> actionHandlers;
+	private Map<Class<Action<R>>, SingleActionHandler<Action<R>, R>> actionHandlers;
 
-    @Inject
-    public ActionHandlerServiceImpl(Map<Class<Action<R>>, SingleActionHandler<Action<R>, R>> actionHandlers) {
-        super();
-        this.actionHandlers = actionHandlers;
-    }
+	@Inject
+	public ActionHandlerServiceImpl(Map<Class<Action<R>>, SingleActionHandler<Action<R>, R>> actionHandlers) {
+		super();
+		this.actionHandlers = actionHandlers;
+	}
 
-    @Override
-    public R execute(Action<R> action) throws ActionException {
-        final SingleActionHandler<Action<R>, R> handler = actionHandlers.get(action.getClass());
+	@Override
+	public R execute(Action<R> action) throws ActionException {
+		final SingleActionHandler<Action<R>, R> handler = actionHandlers.get(action.getClass());
 
-        if (handler == null) {
-            throw new ActionException("Action Handler Not Found.");
-        }
+		if (handler == null) {
+			throw new ActionException("Action Handler Not Found.");
+		}
 
-        return handler.execute(action);
-    }
+		return handler.execute(action);
+	}
 
 }

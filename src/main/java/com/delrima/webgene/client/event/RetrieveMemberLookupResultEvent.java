@@ -17,60 +17,60 @@ import com.google.gwt.event.shared.GwtEvent;
  */
 public class RetrieveMemberLookupResultEvent extends GwtEvent<RetrieveMemberLookupResultEventHandler> {
 
-    /**
-     * Event type for server message events. Represents the meta-data associated with this event.
-     */
-    private static final GwtEvent.Type<RetrieveMemberLookupResultEventHandler> TYPE = new GwtEvent.Type<RetrieveMemberLookupResultEventHandler>();
+	/**
+	 * Event type for server message events. Represents the meta-data associated with this event.
+	 */
+	private static final GwtEvent.Type<RetrieveMemberLookupResultEventHandler> TYPE = new GwtEvent.Type<RetrieveMemberLookupResultEventHandler>();
 
-    /**
-     * Gets the event type associated with server messages events.
-     * 
-     * @return the handler type
-     */
-    public static GwtEvent.Type<RetrieveMemberLookupResultEventHandler> getType() {
-        return TYPE;
-    }
+	/**
+	 * Gets the event type associated with server messages events.
+	 * 
+	 * @return the handler type
+	 */
+	public static GwtEvent.Type<RetrieveMemberLookupResultEventHandler> getType() {
+		return TYPE;
+	}
 
-    /**
-     * If true, server-side processing is ignored. Indicates this event is being triggered for client-side processing only
-     */
-    private final String query;
-    /**
-     * Execute this command after the results are retrieved
-     */
-    private final Command<MemberLookupResult> command;
+	/**
+	 * If true, server-side processing is ignored. Indicates this event is being triggered for client-side processing only
+	 */
+	private final String query;
+	/**
+	 * Execute this command after the results are retrieved
+	 */
+	private final Command<MemberLookupResult> command;
 
-    public RetrieveMemberLookupResultEvent(String query, Command<MemberLookupResult> command) {
-        super();
-        this.query = query;
-        this.command = command;
-    }
+	public RetrieveMemberLookupResultEvent(String query, Command<MemberLookupResult> command) {
+		super();
+		this.query = query;
+		this.command = command;
+	}
 
-    /**
-     * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
-     */
-    @Override
-    protected void dispatch(RetrieveMemberLookupResultEventHandler handler) {
-        handler.onMemberLookupResultRetrieveRequest(this);
-    }
+	/**
+	 * @see com.google.gwt.event.shared.GwtEvent#dispatch(com.google.gwt.event.shared.EventHandler)
+	 */
+	@Override
+	protected void dispatch(RetrieveMemberLookupResultEventHandler handler) {
+		handler.onMemberLookupResultRetrieveRequest(this);
+	}
 
-    /**
-     * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
-     */
-    @Override
-    public com.google.gwt.event.shared.GwtEvent.Type<RetrieveMemberLookupResultEventHandler> getAssociatedType() {
-        return TYPE;
-    }
+	/**
+	 * @see com.google.gwt.event.shared.GwtEvent#getAssociatedType()
+	 */
+	@Override
+	public com.google.gwt.event.shared.GwtEvent.Type<RetrieveMemberLookupResultEventHandler> getAssociatedType() {
+		return TYPE;
+	}
 
-    /**
-     * @return the query
-     */
-    public String getQuery() {
-        return query;
-    }
+	/**
+	 * @return the query
+	 */
+	public String getQuery() {
+		return query;
+	}
 
-    public Command<MemberLookupResult> getCommand() {
-        return command;
-    }
+	public Command<MemberLookupResult> getCommand() {
+		return command;
+	}
 
 }

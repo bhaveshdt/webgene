@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface Validator {
 
-    boolean validate();
+	boolean validate();
 
-    List<String> getValidationResult();
+	List<String> getValidationResult();
 
 }

@@ -11,26 +11,26 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 @SuppressWarnings("serial")
 public class RetrieveSingleMemberResult implements Result, IsSerializable {
 
-    private Member member;
+	private Member member;
 
-    /**
-     * For GWT Serialization
-     */
-    public RetrieveSingleMemberResult() {
-        this(new Member());
-    }
+	/**
+	 * For GWT Serialization
+	 */
+	public RetrieveSingleMemberResult() {
+		this(new Member());
+	}
 
-    public RetrieveSingleMemberResult(Member member) {
-        super();
-        this.member = member;
-    }
+	public RetrieveSingleMemberResult(Member member) {
+		super();
+		this.member = member;
+	}
 
-    public Member getMember() {
-        return member;
-    }
+	public Member getMember() {
+		return member;
+	}
 
-    public void setMember(Member member) {
-        this.member = member;
-    }
+	public void setMember(Member member) {
+		this.member = member;
+	}
 
 }

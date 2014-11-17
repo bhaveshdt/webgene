@@ -7,5 +7,5 @@ import com.google.gwt.inject.client.Ginjector;
 @GinModules(WebgeneClientInjectionModule.class)
 public interface WebgeneWidgetGinjector extends Ginjector {
 
-    MemberTreePresenter getFamilyTreePresenter();
+	MemberTreePresenter getFamilyTreePresenter();
 }

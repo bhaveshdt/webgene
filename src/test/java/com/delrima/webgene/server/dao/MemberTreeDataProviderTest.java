@@ -72,10 +72,8 @@ public class MemberTreeDataProviderTest extends DataProviderTestBase {
 		Member retrievedMember;
 		for (MemberName name : MemberName.values()) {
 			addedMember = dataProvider.addMember(createMember(name));
-			retrievedMember = dataProvider.retrieveMemberById(addedMember
-					.getId());
-			assertEquals("Failed for member: " + name, addedMember.getId(),
-					retrievedMember.getId());
+			retrievedMember = dataProvider.retrieveMemberById(addedMember.getId());
+			assertEquals("Failed for member: " + name, addedMember.getId(), retrievedMember.getId());
 		}
 	}
 
@@ -94,8 +92,7 @@ public class MemberTreeDataProviderTest extends DataProviderTestBase {
 			members = dataProvider.retrieveMembersByName(name.toString());
 			assertFalse("Failed for member: " + name, members == null);
 			assertFalse("Failed for member: " + name, members.size() == 0);
-			assertEquals("Failed for member: " + name, name.toString(), members
-					.get(0).getFirstname());
+			assertEquals("Failed for member: " + name, name.toString(), members.get(0).getFirstname());
 		}
 	}
 
@@ -129,17 +126,14 @@ public class MemberTreeDataProviderTest extends DataProviderTestBase {
 		Member updateGenderMember = getFirstMember(MemberName.JINISHA);
 		updateGenderMember.setGender(GenderIdentifier.M.toString());
 		dataProvider.updateMember(updateGenderMember);
-		assertEquals(GenderIdentifier.M.toString(),
-				getFirstMember(MemberName.JINISHA).getGender());
+		assertEquals(GenderIdentifier.M.toString(), getFirstMember(MemberName.JINISHA).getGender());
 
 		updateGenderMember.setGender(GenderIdentifier.F.toString());
 		dataProvider.updateMember(updateGenderMember);
-		assertEquals(GenderIdentifier.F.toString(),
-				getFirstMember(MemberName.JINISHA).getGender());
+		assertEquals(GenderIdentifier.F.toString(), getFirstMember(MemberName.JINISHA).getGender());
 	}
 
-	private void assertValidParents(MemberName memberName, MemberName father,
-			MemberName mother) {
+	private void assertValidParents(MemberName memberName, MemberName father, MemberName mother) {
 		MemberWithImmediateRelations member = getMemberWithParentsByName(memberName);
 		assertNotNull(member);
 		assertNotNull("Empty father: " + memberName, member.getFather());
@@ -150,19 +144,14 @@ public class MemberTreeDataProviderTest extends DataProviderTestBase {
 		assertEquals(mother.toString(), member.getMother().getFirstname());
 	}
 
-	private MemberWithImmediateRelations getMemberWithParentsByName(
-			MemberName memberName) {
+	private MemberWithImmediateRelations getMemberWithParentsByName(MemberName memberName) {
 		Member member = this.getFirstMember(memberName);
-		Member father = (this.dataProvider.retrieveMemberById(member
-				.getFatherid()));
-		Member mother = (this.dataProvider.retrieveMemberById(member
-				.getMotherid()));
-		return new MemberWithImmediateRelations(member, father, mother, null,
-				null);
+		Member father = (this.dataProvider.retrieveMemberById(member.getFatherid()));
+		Member mother = (this.dataProvider.retrieveMemberById(member.getMotherid()));
+		return new MemberWithImmediateRelations(member, father, mother, null, null);
 	}
 
-	private void setParents(MemberName memberName, MemberName father,
-			MemberName mother) {
+	private void setParents(MemberName memberName, MemberName father, MemberName mother) {
 		Member member = getFirstMember(memberName);
 		Member firstFather = (getFirstMember(father));
 		Member firstMother = (getFirstMember(mother));
@@ -176,8 +165,7 @@ public class MemberTreeDataProviderTest extends DataProviderTestBase {
 	}
 
 	private Member getFirstMember(MemberName member) {
-		List<Member> members = dataProvider.retrieveMembersByName(member
-				.toString());
+		List<Member> members = dataProvider.retrieveMembersByName(member.toString());
 		if (org.springframework.util.CollectionUtils.isEmpty(members)) {
 			return null;
 		}
@@ -187,8 +175,7 @@ public class MemberTreeDataProviderTest extends DataProviderTestBase {
 	@Test
 	public void testDeleteMember() {
 		// delete member
-		dataProvider.deleteMember(this.getFirstMember(MemberName.DELETE)
-				.getId());
+		dataProvider.deleteMember(this.getFirstMember(MemberName.DELETE).getId());
 
 		// ensure member deleted
 		assertNull(getFirstMember(MemberName.DELETE));
@@ -197,12 +184,11 @@ public class MemberTreeDataProviderTest extends DataProviderTestBase {
 	@Test
 	public void testRetrieveMemberDescendants() {
 		String memberName = MemberName.DILIP.toString();
-		List<String> firstGenerationFirstNames = Arrays.asList(new String[] { MemberName.JINISHA.toString(),
-				MemberName.BHAVESH.toString() });
-		List<String> secondGenerationFirstNames = Arrays.asList(new String[] { MemberName.RITIKA.toString(),
-				MemberName.RINA.toString(), MemberName.NEHA.toString() });
-		Set<IsTreeMember>members = dataProvider.retrieveAllMemberTree();
-		HasDescendants descendants = new HierarchicalDataCreator(members, members).retrieveDescendants(dataProvider.retrieveMembersByName(MemberName.DILIP.toString()).get(0).getId());
+		List<String> firstGenerationFirstNames = Arrays.asList(new String[] { MemberName.JINISHA.toString(), MemberName.BHAVESH.toString() });
+		List<String> secondGenerationFirstNames = Arrays.asList(new String[] { MemberName.RITIKA.toString(), MemberName.RINA.toString(), MemberName.NEHA.toString() });
+		Set<IsTreeMember> members = dataProvider.retrieveAllMemberTree();
+		HasDescendants descendants = new HierarchicalDataCreator(members, members).retrieveDescendants(dataProvider.retrieveMembersByName(MemberName.DILIP.toString()).get(0)
+																													.getId());
 		assertFalse(descendants == null);
 		assertEquals(descendants.getMember().getFirstname(), memberName);
 		// test children
@@ -227,47 +213,35 @@ public class MemberTreeDataProviderTest extends DataProviderTestBase {
 	public void testRetrieveMemberAncestors() {
 		String memberName = MemberName.RITIKA.toString();
 
-		Set<IsTreeMember>members = dataProvider.retrieveAllMemberTree();
+		Set<IsTreeMember> members = dataProvider.retrieveAllMemberTree();
 		HasAncestors ancestors = new HierarchicalDataCreator(members, members).retrieveAncestor(dataProvider.retrieveMembersByName(MemberName.RITIKA.toString()).get(0).getId());
-		
+
 		assertFalse(ancestors == null);
 		assertEquals(ancestors.getMember().getFirstname(), memberName);
 
 		// parents
 		HasAncestors mother = ancestors.getMother();
 		HasAncestors father = ancestors.getFather();
-		assertEquals(father.getMember().getFirstname(),
-				MemberName.KETAN.toString());
-		assertEquals(mother.getMember().getFirstname(),
-				MemberName.JINISHA.toString());
+		assertEquals(father.getMember().getFirstname(), MemberName.KETAN.toString());
+		assertEquals(mother.getMember().getFirstname(), MemberName.JINISHA.toString());
 
 		// maternal grand parents
 		HasAncestors maternalGrandMother = mother.getMother();
 		HasAncestors maternalGrandFather = mother.getFather();
-		assertEquals(maternalGrandMother.getMember().getFirstname(),
-				MemberName.MRUDULA.toString());
-		assertEquals(maternalGrandFather.getMember().getFirstname(),
-				MemberName.DILIP.toString());
+		assertEquals(maternalGrandMother.getMember().getFirstname(), MemberName.MRUDULA.toString());
+		assertEquals(maternalGrandFather.getMember().getFirstname(), MemberName.DILIP.toString());
 
 		// maternal - maternal - parents
-		HasAncestors maternalMaternalGrandMother = maternalGrandMother
-				.getMother();
-		HasAncestors maternalMaternalGrandFather = maternalGrandMother
-				.getFather();
-		assertEquals(maternalMaternalGrandMother.getMember().getFirstname(),
-				MemberName.VIMLA.toString());
-		assertEquals(maternalMaternalGrandFather.getMember().getFirstname(),
-				MemberName.MANJI.toString());
+		HasAncestors maternalMaternalGrandMother = maternalGrandMother.getMother();
+		HasAncestors maternalMaternalGrandFather = maternalGrandMother.getFather();
+		assertEquals(maternalMaternalGrandMother.getMember().getFirstname(), MemberName.VIMLA.toString());
+		assertEquals(maternalMaternalGrandFather.getMember().getFirstname(), MemberName.MANJI.toString());
 
 		// maternal - paternal - parents
-		HasAncestors maternalPaternalGrandMother = maternalGrandFather
-				.getMother();
-		HasAncestors maternalPaternalGrandFather = maternalGrandFather
-				.getFather();
-		assertEquals(maternalPaternalGrandMother.getMember().getFirstname(),
-				MemberName.ZAVER.toString());
-		assertEquals(maternalPaternalGrandFather.getMember().getFirstname(),
-				MemberName.NARANJI.toString());
+		HasAncestors maternalPaternalGrandMother = maternalGrandFather.getMother();
+		HasAncestors maternalPaternalGrandFather = maternalGrandFather.getFather();
+		assertEquals(maternalPaternalGrandMother.getMember().getFirstname(), MemberName.ZAVER.toString());
+		assertEquals(maternalPaternalGrandFather.getMember().getFirstname(), MemberName.NARANJI.toString());
 	}
 
 }

@@ -9,11 +9,11 @@ import com.google.gwt.event.shared.EventHandler;
  */
 public interface RetrieveMemberLookupResultEventHandler extends EventHandler {
 
-    /**
-     * <p>
-     * </p>
-     * 
-     * @param event
-     */
-    void onMemberLookupResultRetrieveRequest(RetrieveMemberLookupResultEvent event);
+	/**
+	 * <p>
+	 * </p>
+	 * 
+	 * @param event
+	 */
+	void onMemberLookupResultRetrieveRequest(RetrieveMemberLookupResultEvent event);
 }

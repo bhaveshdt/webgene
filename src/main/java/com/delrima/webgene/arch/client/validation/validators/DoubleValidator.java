@@ -13,23 +13,23 @@ import com.delrima.webgene.arch.client.validation.Validator;
  */
 public class DoubleValidator implements Validator {
 
-    public static final DoubleValidator INSTANCE = new DoubleValidator();
+	public static final DoubleValidator INSTANCE = new DoubleValidator();
 
-    /** Creates a new instance of DoubleValidator */
-    private DoubleValidator() {
-    }
+	/** Creates a new instance of DoubleValidator */
+	private DoubleValidator() {
+	}
 
-    public boolean isValid(Object value) {
-        if (value == null) {
-            return false;
-        }
-        try {
-            new Double(value.toString());
-        } catch (NumberFormatException nfe) {
-            return false;
-        }
+	public boolean isValid(Object value) {
+		if (value == null) {
+			return false;
+		}
+		try {
+			new Double(value.toString());
+		} catch (NumberFormatException nfe) {
+			return false;
+		}
 
-        return true;
-    }
+		return true;
+	}
 
 }

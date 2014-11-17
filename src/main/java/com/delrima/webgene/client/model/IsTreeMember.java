@@ -5,20 +5,20 @@ import java.util.Date;
 
 public interface IsTreeMember extends Serializable {
 
-    Long getId();
+	Long getId();
 
-    Long getMotherid();
+	Long getMotherid();
 
-    Long getFatherid();
+	Long getFatherid();
 
-    Long getSpouseid();
+	Long getSpouseid();
 
-    Date getDob();
+	Date getDob();
 
-    String getGender();
+	String getGender();
 
-    String getFirstname();
+	String getFirstname();
 
-    String getLastname();
+	String getLastname();
 
 }

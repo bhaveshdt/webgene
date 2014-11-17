@@ -8,10 +8,10 @@ import com.delrima.webgene.client.common.FrameworkContextBean;
  */
 public class ClientSession {
 
-    private static final FrameworkContextBean frameworkContextBean = new FrameworkContextBean();
+	private static final FrameworkContextBean frameworkContextBean = new FrameworkContextBean();
 
-    public static FrameworkContextBean getFrameworkContextBean() {
-        return frameworkContextBean;
-    }
+	public static FrameworkContextBean getFrameworkContextBean() {
+		return frameworkContextBean;
+	}
 
 }

@@ -7,14 +7,14 @@ import com.google.gwt.core.client.GWT;
 
 public class WebGeneModule extends AbstractEntryPoint {
 
-    public static enum ViewIdentifier {
-        HOME, MEMBER_LIST, HOME_VISUALIZATION
-    }
+	public static enum ViewIdentifier {
+		HOME, MEMBER_LIST, HOME_VISUALIZATION
+	}
 
-    @Override
-    protected void populateViewInstances() {
-        viewInstances.put(ViewIdentifier.HOME.toString(), (WebGenePlace) GWT.create(WebGenePlace.class));
-        viewInstances.put(ViewIdentifier.MEMBER_LIST.toString(), (MemberListPlace) GWT.create(MemberListPlace.class));
-    }
+	@Override
+	protected void populateViewInstances() {
+		viewInstances.put(ViewIdentifier.HOME.toString(), (WebGenePlace) GWT.create(WebGenePlace.class));
+		viewInstances.put(ViewIdentifier.MEMBER_LIST.toString(), (MemberListPlace) GWT.create(MemberListPlace.class));
+	}
 
 }

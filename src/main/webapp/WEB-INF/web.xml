@@ -10,11 +10,11 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
+	<!-- Spring Application Context -->
 	<!-- Bootstrap the root application context as usual using ContextLoaderListener -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
 	<!-- Configure ContextLoaderListener to use AnnotationConfigWebApplicationContext 
 		instead of the default XmlWebApplicationContext -->
 	<context-param>
@@ -23,7 +23,6 @@
           org.springframework.web.context.support.AnnotationConfigWebApplicationContext
       </param-value>
 	</context-param>
-
 	<!-- Configuration locations must consist of one or more comma- or space-delimited 
 		fully-qualified @Configuration classes. Fully-qualified packages may also 
 		be specified for component-scanning -->
@@ -31,6 +30,26 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>com.delrima.webgene.server.configuration.ContainerConfiguration</param-value>
 	</context-param>
+	
+	<!-- Dispatcher Servlet - REST APIs -->
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>com.delrima.webgene.server.configuration.SpringRestConfiguration</param-value>
+		</init-param>
+		<load-on-startup>4</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
 
 	<!-- GWT RPC Configuration -->
 	<servlet>
@@ -95,4 +114,7 @@
 			<role-name>admin</role-name>
 		</auth-constraint>
 	</security-constraint>
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
 </web-app>

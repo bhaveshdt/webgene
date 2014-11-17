@@ -6,10 +6,10 @@ import com.delrima.webgene.client.enums.GenderIdentifier;
 
 public class WebGeneUtils {
 
-    public static boolean isMemberMale(Member member) {
-        if (member != null) {
-            return StringUtils.equalsIgnoreCase(member.getGender(), GenderIdentifier.M.toString());
-        }
-        return false;
-    }
+	public static boolean isMemberMale(Member member) {
+		if (member != null) {
+			return StringUtils.equalsIgnoreCase(member.getGender(), GenderIdentifier.M.toString());
+		}
+		return false;
+	}
 }

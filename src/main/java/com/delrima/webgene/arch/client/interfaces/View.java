@@ -12,12 +12,12 @@ package com.delrima.webgene.arch.client.interfaces;
  */
 public interface View {
 
-    /**
-     * <p>
-     * Pre-process before displaying widget
-     * </p>
-     * 
-     * @return
-     */
-    void process();
+	/**
+	 * <p>
+	 * Pre-process before displaying widget
+	 * </p>
+	 * 
+	 * @return
+	 */
+	void process();
 }

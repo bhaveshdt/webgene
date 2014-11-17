@@ -34,49 +34,49 @@ import com.delrima.webgene.server.services.UpdateMemberActionHandler;
 @EnableSpringConfigured
 public class ContainerConfiguration {
 
-    @Autowired
-    private PersistenceJPAConfiguration persistenceJPAConfiguration;
+	@Autowired
+	private PersistenceJPAConfiguration persistenceJPAConfiguration;
 
-    @Bean
-    public MemberTreeDAO familyTreeDao() {
-        return new MemberTreeDaoServerImpl(persistenceJPAConfiguration.entityManager());
-    }
+	@Bean
+	public MemberTreeDAO familyTreeDao() {
+		return new MemberTreeDaoServerImpl(persistenceJPAConfiguration.entityManager());
+	}
 
-    @Bean
-    public MemberTreeDataProvider familyTreeDataProvider() {
-        return new MemberTreeDataProviderImpl(familyTreeDao());
-    }
+	@Bean
+	public MemberTreeDataProvider familyTreeDataProvider() {
+		return new MemberTreeDataProviderImpl(familyTreeDao());
+	}
 
-    @Bean
+	@Bean
 	public MemberHierarchyCreatorTemplate MemberTreeIteratorTemplate() {
 		return new MemberHierarchyCreatorTemplate(familyTreeDao());
-    }
+	}
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    @Bean
-    public <R extends Result> Map<Class<Action<R>>, SingleActionHandler<Action<R>, R>> singleActionHandlerList() {
-        Map<Class<Action<R>>, SingleActionHandler<Action<R>, R>> result = new HashMap<Class<Action<R>>, SingleActionHandler<Action<R>, R>>();
-        result.put((Class) MemberLookupAction.class, (SingleActionHandler) new MemberLookupActionHandler(familyTreeDataProvider()));
-        result.put((Class) RetrieveMemberTreeAction.class, (SingleActionHandler) new RetrieveMemberTreeActionHandler(familyTreeDataProvider()));
-        result.put((Class) RetrieveSingleMemberAction.class, (SingleActionHandler) retrieveSingleMemberActionHandler());
-        result.put((Class) UpdateMemberAction.class, (SingleActionHandler) new UpdateMemberActionHandler(familyTreeDataProvider(), retrieveSingleMemberActionHandler()));
-        return result;
-    }
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Bean
+	public <R extends Result> Map<Class<Action<R>>, SingleActionHandler<Action<R>, R>> singleActionHandlerList() {
+		Map<Class<Action<R>>, SingleActionHandler<Action<R>, R>> result = new HashMap<Class<Action<R>>, SingleActionHandler<Action<R>, R>>();
+		result.put((Class) MemberLookupAction.class, (SingleActionHandler) new MemberLookupActionHandler(familyTreeDataProvider()));
+		result.put((Class) RetrieveMemberTreeAction.class, (SingleActionHandler) new RetrieveMemberTreeActionHandler(familyTreeDataProvider()));
+		result.put((Class) RetrieveSingleMemberAction.class, (SingleActionHandler) retrieveSingleMemberActionHandler());
+		result.put((Class) UpdateMemberAction.class, (SingleActionHandler) new UpdateMemberActionHandler(familyTreeDataProvider(), retrieveSingleMemberActionHandler()));
+		return result;
+	}
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    @Bean
-    public <R extends Result> ActionHandlerServiceImpl<R> actionHandlerService() {
-        return new ActionHandlerServiceImpl<R>((Map) singleActionHandlerList());
-    }
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Bean
+	public <R extends Result> ActionHandlerServiceImpl<R> actionHandlerService() {
+		return new ActionHandlerServiceImpl<R>((Map) singleActionHandlerList());
+	}
 
-    @Bean
-    public RetrieveSingleMemberActionHandler retrieveSingleMemberActionHandler() {
-        return new RetrieveSingleMemberActionHandler(familyTreeDataProvider());
-    }
+	@Bean
+	public RetrieveSingleMemberActionHandler retrieveSingleMemberActionHandler() {
+		return new RetrieveSingleMemberActionHandler(familyTreeDataProvider());
+	}
 
-    @Bean
-    public AnnotationBeanConfigurerAspect annotationBeanConfigurerAspect() {
-        return Aspects.aspectOf(AnnotationBeanConfigurerAspect.class);
+	@Bean
+	public AnnotationBeanConfigurerAspect annotationBeanConfigurerAspect() {
+		return Aspects.aspectOf(AnnotationBeanConfigurerAspect.class);
 
-    }
+	}
 }

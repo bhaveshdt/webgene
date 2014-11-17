@@ -27,188 +27,201 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 @Table(name = "member")
 public class Member implements Serializable, IsTreeMember, IsSerializable {
 
-    @Column(name = "firstname", length = 50)
-    @NotNull
-    private String firstname;
+	@Column(name = "firstname", length = 50)
+	@NotNull
+	private String firstname;
 
-    @Column(name = "middlename", length = 50)
-    private String middlename;
+	@Column(name = "middlename", length = 50)
+	private String middlename;
 
-    @Column(name = "lastname", length = 50)
-    @NotNull
-    private String lastname;
+	@Column(name = "lastname", length = 50)
+	@NotNull
+	private String lastname;
 
-    @Column(name = "maidenname", length = 50)
-    private String maidenname;
+	@Column(name = "maidenname", length = 50)
+	private String maidenname;
 
-    @Column(name = "dob")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dob;
+	@Column(name = "dob")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dob;
 
-    @Column(name = "dod")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dod;
+	@Column(name = "dod")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dod;
 
-    @Column(name = "gender", length = 2, columnDefinition = "enum('M','F','U')")
-    @NotNull
-    private String gender;
+	@Column(name = "gender", length = 2, columnDefinition = "enum('M','F','U')")
+	@NotNull
+	private String gender;
 
-    @Column(name = "occupation", length = 100)
-    private String occupation;
+	@Column(name = "occupation", length = 100)
+	private String occupation;
 
-    @Column(name = "membersince")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date membersince;
+	@Column(name = "membersince")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date membersince;
 
-    public String getFirstname() {
-        return firstname;
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
+	@Basic
+	@Column(name = "motherid")
+	private Long motherid;
 
-    public String getMiddlename() {
-        return middlename;
-    }
+	@Basic
+	@Column(name = "fatherid")
+	private Long fatherid;
 
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
-    }
+	@Basic
+	@Column(name = "spouseid")
+	private Long spouseid;
 
-    public String getLastname() {
-        return lastname;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final Member other = (Member) obj;
+		if (id == null) {
+			if (other.id != null) {
+				return false;
+			}
+		} else if (!id.equals(other.id)) {
+			return false;
+		}
+		return true;
+	}
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
+	@Override
+	public Date getDob() {
+		return dob;
+	}
 
-    public String getMaidenname() {
-        return maidenname;
-    }
+	public Date getDod() {
+		return dod;
+	}
 
-    public void setMaidenname(String maidenname) {
-        this.maidenname = maidenname;
-    }
+	@Override
+	public Long getFatherid() {
+		return fatherid;
+	}
 
-    public Date getDob() {
-        return dob;
-    }
+	@Override
+	public String getFirstname() {
+		return firstname;
+	}
 
-    public void setDob(Date dob) {
-        this.dob = dob;
-    }
+	@Override
+	public String getGender() {
+		return gender;
+	}
 
-    public Date getDod() {
-        return dod;
-    }
+	@Override
+	public Long getId() {
+		return id;
+	}
 
-    public void setDod(Date dod) {
-        this.dod = dod;
-    }
+	@Override
+	public String getLastname() {
+		return lastname;
+	}
 
-    public String getGender() {
-        return gender;
-    }
+	public String getMaidenname() {
+		return maidenname;
+	}
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+	public Date getMembersince() {
+		return membersince;
+	}
 
-    public String getOccupation() {
-        return occupation;
-    }
+	public String getMiddlename() {
+		return middlename;
+	}
 
-    public void setOccupation(String occupation) {
-        this.occupation = occupation;
-    }
+	@Override
+	public Long getMotherid() {
+		return motherid;
+	}
 
-    public Date getMembersince() {
-        return membersince;
-    }
+	public String getOccupation() {
+		return occupation;
+	}
 
-    public void setMembersince(Date membersince) {
-        this.membersince = membersince;
-    }
+	@Override
+	public Long getSpouseid() {
+		return spouseid;
+	}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (id == null ? 0 : id.hashCode());
+		return result;
+	}
 
-    @Basic
-    @Column(name = "motherid")
-    private Long motherid;
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
 
-    @Basic
-    @Column(name = "fatherid")
-    private Long fatherid;
+	public void setDod(Date dod) {
+		this.dod = dod;
+	}
 
-    @Basic
-    @Column(name = "spouseid")
-    private Long spouseid;
+	public void setFatherid(Long fatherid) {
+		this.fatherid = fatherid;
+	}
 
-    public Long getId() {
-        return this.id;
-    }
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Member other = (Member) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
-    }
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
 
-    @Override
-    public String toString() {
-        return "Member [firstname=" + firstname + ", lastname=" + lastname + ", dob=" + dob + ", id=" + id + "]";
-    }
+	public void setMaidenname(String maidenname) {
+		this.maidenname = maidenname;
+	}
 
-    public Long getMotherid() {
-        return motherid;
-    }
+	public void setMembersince(Date membersince) {
+		this.membersince = membersince;
+	}
 
-    public void setMotherid(Long motherid) {
-        this.motherid = motherid;
-    }
+	public void setMiddlename(String middlename) {
+		this.middlename = middlename;
+	}
 
-    public Long getFatherid() {
-        return fatherid;
-    }
+	public void setMotherid(Long motherid) {
+		this.motherid = motherid;
+	}
 
-    public void setFatherid(Long fatherid) {
-        this.fatherid = fatherid;
-    }
+	public void setOccupation(String occupation) {
+		this.occupation = occupation;
+	}
 
-    public Long getSpouseid() {
-        return spouseid;
-    }
+	public void setSpouseid(Long spouseid) {
+		this.spouseid = spouseid;
+	}
 
-    public void setSpouseid(Long spouseid) {
-        this.spouseid = spouseid;
-    }
+	@Override
+	public String toString() {
+		return "Member [firstname=" + firstname + ", lastname=" + lastname + ", dob=" + dob + ", id=" + id + "]";
+	}
 
 }

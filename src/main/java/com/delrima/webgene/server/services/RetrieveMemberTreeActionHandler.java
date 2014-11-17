@@ -20,31 +20,31 @@ import com.delrima.webgene.client.result.RetrieveMemberTreeResult;
  */
 public class RetrieveMemberTreeActionHandler extends AbstractWebgeneActionHandler implements SingleActionHandler<RetrieveMemberTreeAction, RetrieveMemberTreeResult> {
 
-    @Inject
-    public RetrieveMemberTreeActionHandler(MemberTreeDataProvider dataProvider) {
-        super(dataProvider);
-    }
+	@Inject
+	public RetrieveMemberTreeActionHandler(MemberTreeDataProvider dataProvider) {
+		super(dataProvider);
+	}
 
-    public RetrieveMemberTreeResult execute(RetrieveMemberTreeAction action) throws ActionException {
+	public RetrieveMemberTreeResult execute(RetrieveMemberTreeAction action) throws ActionException {
 
-        Set<IsTreeMember> members = null;
-        try {
-            members = new HashSet<IsTreeMember>();
-            if (!ArrayUtils.isEmpty(action.getMemberIds())) {
-                for (Long id : action.getMemberIds()) {
-                    members.add(this.getDataProvider().retrieveMemberById(id));
-                }
-            } else {
-                members = this.getDataProvider().retrieveAllMemberTree();
-            }
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
-        return new RetrieveMemberTreeResult(members);
-    }
+		Set<IsTreeMember> members = null;
+		try {
+			members = new HashSet<IsTreeMember>();
+			if (!ArrayUtils.isEmpty(action.getMemberIds())) {
+				for (Long id : action.getMemberIds()) {
+					members.add(this.getDataProvider().retrieveMemberById(id));
+				}
+			} else {
+				members = this.getDataProvider().retrieveAllMemberTree();
+			}
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+		return new RetrieveMemberTreeResult(members);
+	}
 
-    public Class<RetrieveMemberTreeAction> getActionType() {
-        return RetrieveMemberTreeAction.class;
-    }
+	public Class<RetrieveMemberTreeAction> getActionType() {
+		return RetrieveMemberTreeAction.class;
+	}
 
 }

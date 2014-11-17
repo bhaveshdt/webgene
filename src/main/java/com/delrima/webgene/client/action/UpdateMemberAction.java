@@ -10,30 +10,30 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 @SuppressWarnings("serial")
 public class UpdateMemberAction implements Action<UpdateMemberResult>, Result, IsSerializable {
 
-    private Member relativeMember;
-    private Member member;
-    private NAME eventName;
+	private Member relativeMember;
+	private Member member;
+	private NAME eventName;
 
-    public UpdateMemberAction() {
-    }
+	public UpdateMemberAction() {
+	}
 
-    public UpdateMemberAction(Member relativeMember, Member member, NAME eventName) {
-        super();
-        this.relativeMember = relativeMember;
-        this.member = member;
-        this.eventName = eventName;
-    }
+	public UpdateMemberAction(Member relativeMember, Member member, NAME eventName) {
+		super();
+		this.relativeMember = relativeMember;
+		this.member = member;
+		this.eventName = eventName;
+	}
 
-    public Member getRelativeMember() {
-        return relativeMember;
-    }
+	public Member getRelativeMember() {
+		return relativeMember;
+	}
 
-    public Member getMember() {
-        return member;
-    }
+	public Member getMember() {
+		return member;
+	}
 
-    public NAME getEventName() {
-        return eventName;
-    }
+	public NAME getEventName() {
+		return eventName;
+	}
 
 }
