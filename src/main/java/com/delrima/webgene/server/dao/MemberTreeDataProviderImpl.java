@@ -5,9 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.inject.Inject;
-
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +20,12 @@ public class MemberTreeDataProviderImpl implements MemberTreeDataProvider {
 
 	private final MemberTreeDAO dao;
 
-	@Inject
+	@Autowired
 	public MemberTreeDataProviderImpl(@Qualifier("gaeDao") MemberTreeDAO dao) {
 		this.dao = dao;
 	}
 
+	@Override
 	public Member addMember(Member member) {
 		member.setMembersince(new Date());
 		capitalizeMemberName(member);
@@ -35,7 +35,7 @@ public class MemberTreeDataProviderImpl implements MemberTreeDataProvider {
 
 	/**
 	 * Capitalize names
-	 * 
+	 *
 	 * @param member
 	 */
 	private void capitalizeMemberName(Member member) {
@@ -45,27 +45,15 @@ public class MemberTreeDataProviderImpl implements MemberTreeDataProvider {
 		member.setMaidenname(StringUtils.capitalize(member.getMaidenname()));
 	}
 
-	public Member updateMember(Member member) {
-		capitalizeMemberName(member);
-		dao.updateMember(member);
-		return member;
-	}
-
+	@Override
 	public void deleteMember(Long memberId) {
 		dao.deleteMember(memberId);
 	}
 
 	@Override
-	public List<Member> retrieveMembersByName(String name) {
-		return dao.retrieveMembersByName(StringUtils.capitalize(name));
-	}
-
-	@Override
-	public Member retrieveMemberById(Long memberId) {
-		if (memberId == null) {
-			return null;
-		}
-		return dao.retrieveMemberById(memberId);
+	public Set<IsTreeMember> retrieveAllMemberTree() {
+		final List<Member> members = dao.retrieveAllMembers();
+		return new HashSet<IsTreeMember>(members);
 	}
 
 	@Override
@@ -77,9 +65,23 @@ public class MemberTreeDataProviderImpl implements MemberTreeDataProvider {
 	}
 
 	@Override
-	public Set<IsTreeMember> retrieveAllMemberTree() {
-		List<Member> members = this.dao.retrieveAllMembers();
-		return new HashSet<IsTreeMember>(members);
+	public Member retrieveMemberById(Long memberId) {
+		if (memberId == null) {
+			return null;
+		}
+		return dao.retrieveMemberById(memberId);
+	}
+
+	@Override
+	public List<Member> retrieveMembersByName(String name) {
+		return dao.retrieveMembersByName(StringUtils.capitalize(name));
+	}
+
+	@Override
+	public Member updateMember(Member member) {
+		capitalizeMemberName(member);
+		dao.updateMember(member);
+		return member;
 	}
 
 }

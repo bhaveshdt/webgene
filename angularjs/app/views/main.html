@@ -1,5 +1,84 @@
-<div>
-	<input type="text" class="suggest" ng-model="query" placeholder="Name...">&nbsp;
-	<button type="button" class="add">+ Add</button>
-	<div class="error-message"></div>
+<div ng-controller="MainCtrl">
+	<div class="navigation">
+		<input type="text" class="suggest" ng-model="query" placeholder="Name..."> &nbsp;<span><button type="button" class="add"
+				ng-click="onAddOpen()"
+			>+ Add</button></span> <input type="radio" ng-model="orientation" value="vertical" /> <span>Vertical</span> <input type="radio" ng-model="orientation" value="horizontal"
+			checked="checked"
+		/> <span>Horizontal</span>
+	</div>
+	<br> <br> <br>
+	<div ng-controller="TreeCtrl">
+		<tree-members id="family" query="query" members="members" orientation="orientation" onMemberClick="onMemberClick"></tree-members>
+	</div>
 </div>
+<script type="text/ng-template" id="addMemberTemplate">
+<div id="add" style="text-align: left; max-width: 250px;" ng-conroller="AddCtrl">
+	<form novalidate class="simple-form">
+		<table>
+			<tbody>
+				<tr>
+					<td>Id</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>First</td>
+					<td><input ng-model="member.firstname" type="text" required></td>
+				</tr>
+				<tr>
+					<td>Middle</td>
+					<td><input ng-model="member.middlename" type="text"></td>
+				</tr>
+				<tr>
+					<td>Last</td>
+					<td><input ng-model="member.lastname" type="text"></td>
+				</tr>
+				<tr>
+					<td>Maiden</td>
+					<td><input ng-model="member.maidenname" type="text"></td>
+				</tr>
+				<tr>
+					<td>Birth</td>
+					<td><input ng-model="member.dob" type="date"></td>
+				</tr>
+				<tr>
+					<td>Expire</td>
+					<td><input ng-model="member.dod" type="date"></td>
+				</tr>
+				<tr>
+					<td>Gender</td>
+					<td><select ng-model="member.gender">
+							<option value="M">Male</option>
+							<option value="F">Female</option>
+							<option value="U">Unknown</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td>Occupation</td>
+					<td><input ng-model="member.occupation" type="text"></td>
+				</tr>
+				<tr>
+					<td>Father</td>
+					<td><input ng-model="member.fatherid" type="text"></td>
+				</tr>
+				<tr>
+					<td>Mother</td>
+					<td><input ng-model="member.motherid" type="text"></td>
+				</tr>
+				<tr>
+					<td>Spouse</td>
+					<td><input ng-model="member.spouseid" type="text"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" ng-click="onAdd(member)" value="Save Member" /></td>
+				</tr>
+			</tbody>
+		</table>
+		<pre>member = {{member | json}}</pre>
+	</form>
+</div>
+</script>

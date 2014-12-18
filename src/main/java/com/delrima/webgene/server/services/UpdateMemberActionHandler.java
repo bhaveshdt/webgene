@@ -2,9 +2,9 @@ package com.delrima.webgene.server.services;
 
 import java.util.Set;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Component;
 
 import com.delrima.webgene.client.action.RetrieveSingleMemberAction;
 import com.delrima.webgene.client.action.SingleActionHandler;
@@ -19,6 +19,7 @@ import com.delrima.webgene.client.result.UpdateMemberResult;
 /**
  * @author Bhavesh
  */
+@Component
 public class UpdateMemberActionHandler extends AbstractWebgeneActionHandler implements SingleActionHandler<UpdateMemberAction, UpdateMemberResult> {
 
 	private final RetrieveSingleMemberActionHandler retrieveSingleMemberActionHandler;
@@ -26,10 +27,26 @@ public class UpdateMemberActionHandler extends AbstractWebgeneActionHandler impl
 	/**
 	 * @param actionHandlerRegistry
 	 */
-	@Inject
+	@Autowired
 	public UpdateMemberActionHandler(MemberTreeDataProvider dataProvider, RetrieveSingleMemberActionHandler retrieveSingleMemberActionHandler) {
 		super(dataProvider);
 		this.retrieveSingleMemberActionHandler = retrieveSingleMemberActionHandler;
+	}
+
+	public Member addParent(long childId, Member member) {
+		final Member parent = getDataProvider().addMember(member);
+		// update child with mother and father
+		final Member child = getDataProvider().retrieveMemberById(childId);
+		final boolean isParentMale = WebGeneUtils.isMemberMale(parent);
+		if (isParentMale) {
+			child.setFatherid(parent.getId());
+			child.setMotherid(parent.getSpouseid());
+		} else {
+			child.setMotherid(parent.getId());
+			child.setFatherid(parent.getSpouseid());
+		}
+		getDataProvider().updateMember(child);
+		return parent;
 	}
 
 	/*
@@ -37,6 +54,7 @@ public class UpdateMemberActionHandler extends AbstractWebgeneActionHandler impl
 	 * 
 	 * @see com.delrima.webgene.client.action.ActionHandler#execute(com.delrima.webgene.client.common.Action)
 	 */
+	@Override
 	public UpdateMemberResult execute(UpdateMemberAction action) throws ActionException {
 		System.out.println("UpdateMemberHandler.execute()");
 
@@ -52,10 +70,53 @@ public class UpdateMemberActionHandler extends AbstractWebgeneActionHandler impl
 				break;
 			}
 			}
-		} catch (DataAccessException e) {
+		} catch (final DataAccessException e) {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	public Class<UpdateMemberAction> getActionType() {
+		return UpdateMemberAction.class;
+	}
+
+	public void updateMember(Member member) {
+		final Member beforeUpdateMember = getDataProvider().retrieveMemberById(member.getId());
+		getDataProvider().updateMember(member);
+		final Member afterUpdateMember = member;
+		// ignore if unknown member, (id will be null for unknown spouse)
+		if (afterUpdateMember.getSpouseid() == null) {
+			return;
+		}
+
+		final Member beforeUpdateSpouseMember = getDataProvider().retrieveMemberById(beforeUpdateMember.getSpouseid());
+		final Member afterUpdateSpouseMember = getDataProvider().retrieveMemberById(afterUpdateMember.getSpouseid());
+
+		// if spouse has changed, update the member's spouse's children
+		if (beforeUpdateSpouseMember == null || beforeUpdateSpouseMember.getId() != afterUpdateSpouseMember.getId()) {
+			// get database version of the member
+			final Member updatedMember = getDataProvider().retrieveMemberById(beforeUpdateMember.getId());
+			final boolean isUpdatedMemberMale = WebGeneUtils.isMemberMale(updatedMember);
+
+			// get children of the member updated
+			final Set<Member> childrenOfUpdatedMember = getDataProvider().retrieveChildren(updatedMember.getId());
+
+			// update the children to reflect the parent change
+			if (childrenOfUpdatedMember != null) {
+				if (isUpdatedMemberMale) {
+					for (final Member child : childrenOfUpdatedMember) {
+						child.setMotherid(afterUpdateSpouseMember.getId());
+						getDataProvider().updateMember(child);
+					}
+				} else {
+					for (final Member child : childrenOfUpdatedMember) {
+						child.setFatherid(afterUpdateSpouseMember.getId());
+						getDataProvider().updateMember(child);
+					}
+				}
+			}
+		}
 	}
 
 	private UpdateMemberResult updateMember(UpdateMemberAction action) throws ActionException {
@@ -65,77 +126,25 @@ public class UpdateMemberActionHandler extends AbstractWebgeneActionHandler impl
 		switch (action.getEventName()) {
 		case ADD_CHILD:
 		case ADD_MEMBER:
-			this.getDataProvider().addMember(member);
+			member = getDataProvider().addMember(member);
 			break;
 		case EDIT_MEMBER:
-			this.getDataProvider().updateMember(member);
-			// update children if spouse has been updated
-			updateChildrenForNewSpouse(action.getRelativeMember(), member);
+			updateMember(member);
 			break;
 		case ADD_PARENT:
 			// add member to database
-			Member parent = this.getDataProvider().addMember(member);
-			// update child with mother and father
-			Member child = this.getDataProvider().retrieveMemberById(action.getRelativeMember().getId());
-			boolean isParentMale = WebGeneUtils.isMemberMale(parent);
-			if (isParentMale) {
-				child.setFatherid(parent.getId());
-				child.setMotherid(parent.getSpouseid());
-			} else {
-				child.setMotherid(parent.getId());
-				child.setFatherid(parent.getSpouseid());
-			}
-			this.getDataProvider().updateMember(child);
+			member = addParent(action.getRelativeMember().getId(), member);
 			break;
 		case DELETE_MEMBER:
-			this.getDataProvider().deleteMember(member.getId());
+			getDataProvider().deleteMember(member.getId());
 			break;
 		}
 
 		// retrieve from database
-		MemberWithImmediateRelations updatedMember = this.retrieveSingleMemberActionHandler.execute(new RetrieveSingleMemberAction(member.getId()));
+		final MemberWithImmediateRelations updatedMember = retrieveSingleMemberActionHandler.execute(new RetrieveSingleMemberAction(member.getId()));
 
 		// return result
 		return new UpdateMemberResult(updatedMember, action.getEventName());
-	}
-
-	private void updateChildrenForNewSpouse(Member beforeUpdateMember, Member afterUpdateMember) {
-		// ignore if unknown member, (id will be null for unknown spouse)
-		if (afterUpdateMember.getSpouseid() == null) {
-			return;
-		}
-
-		Member beforeUpdateSpouseMember = this.getDataProvider().retrieveMemberById(beforeUpdateMember.getSpouseid());
-		Member afterUpdateSpouseMember = this.getDataProvider().retrieveMemberById(afterUpdateMember.getSpouseid());
-
-		// if spouse has changed, update the member's spouse's children
-		if (beforeUpdateSpouseMember == null || beforeUpdateSpouseMember.getId() != afterUpdateSpouseMember.getId()) {
-			// get database version of the member
-			Member updatedMember = this.getDataProvider().retrieveMemberById(beforeUpdateMember.getId());
-			boolean isUpdatedMemberMale = WebGeneUtils.isMemberMale(updatedMember);
-
-			// get children of the member updated
-			Set<Member> childrenOfUpdatedMember = this.getDataProvider().retrieveChildren(updatedMember.getId());
-
-			// update the children to reflect the parent change
-			if (childrenOfUpdatedMember != null) {
-				if (isUpdatedMemberMale) {
-					for (final Member child : childrenOfUpdatedMember) {
-						child.setMotherid(afterUpdateSpouseMember.getId());
-						this.getDataProvider().updateMember(child);
-					}
-				} else {
-					for (final Member child : childrenOfUpdatedMember) {
-						child.setFatherid(afterUpdateSpouseMember.getId());
-						this.getDataProvider().updateMember(child);
-					}
-				}
-			}
-		}
-	}
-
-	public Class<UpdateMemberAction> getActionType() {
-		return UpdateMemberAction.class;
 	}
 
 }

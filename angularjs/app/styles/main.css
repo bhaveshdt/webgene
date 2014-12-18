@@ -1,3 +1,16 @@
+html, body {
+	height: 100%;
+}
+
+html {
+	margin: auto;
+}
+
+body {
+	display: table-cell;
+	vertical-align: middle;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -41,10 +54,9 @@ body {
 /* Customize container */
 @media ( min-width : 768px) {
 	.container {
-		max-width: 730px;
-		width: 960px;
+		/* 		max-width: 730px; */
+		/* 		width: 960px; */
 		margin: 0 auto;
-		text-align: center;
 	}
 }
 
@@ -89,11 +101,65 @@ body {
 	}
 }
 
+/* Navigation */
+@media screen and (min-width: 768px) {
+	.navigation {
+		max-width: 100%;
+		width: 100%;
+	}
+}
+
+.navigation {
+	top: 0px;
+	position: fixed;
+	width: 100%;
+	height: 40px;
+	margin: 0px 10px 0px 0px;
+	border-bottom: 1px solid grey;
+	opacity: 1;
+	z-index: 9999;
+	background-color: white;
+	padding-top: 10px;
+}
+
 .suggest {
 	width: 250px;
 	height: 20px;
-	margin-bottom: 10px;
 }
+
 .add {
 	float: right;
+	margin-right: 10px;
+}
+
+/* Tree */
+.member {
+	border: 1px solid;
+	margin: 1px;
+	position: absolute;
+	width: 150px;
+	text-align: center;
+	padding: 1px;
+	height: 40px;
+	overflow: hidden;
+}
+
+.tree {
+	position: relative;
+}
+
+.horizontal-tree {
+	float: left;
+}
+
+.ancestors {
+	color: grey;
+}
+
+.descendants {
+	color: green;
+}
+
+.root {
+	color: black
 }

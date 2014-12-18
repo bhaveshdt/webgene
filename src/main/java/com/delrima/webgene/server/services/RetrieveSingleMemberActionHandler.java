@@ -2,8 +2,7 @@ package com.delrima.webgene.server.services;
 
 import java.util.Set;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 
 import com.delrima.webgene.client.action.RetrieveSingleMemberAction;
@@ -15,31 +14,33 @@ import com.delrima.webgene.client.model.MemberWithImmediateRelations;
 
 /**
  * @author Bhavesh
- * 
+ *
  */
 public class RetrieveSingleMemberActionHandler extends AbstractWebgeneActionHandler implements SingleActionHandler<RetrieveSingleMemberAction, MemberWithImmediateRelations> {
 
-	@Inject
+	@Autowired
 	public RetrieveSingleMemberActionHandler(MemberTreeDataProvider dataProvider) {
 		super(dataProvider);
 	}
 
+	@Override
 	public MemberWithImmediateRelations execute(RetrieveSingleMemberAction action) throws ActionException {
 
 		MemberWithImmediateRelations result = null;
 		try {
-			Member member = getDataProvider().retrieveMemberById(action.getMemberId());
-			Member father = getDataProvider().retrieveMemberById(member.getFatherid());
-			Member mother = getDataProvider().retrieveMemberById(member.getMotherid());
-			Member spouse = getDataProvider().retrieveMemberById(member.getSpouseid());
-			Set<Member> children = this.getDataProvider().retrieveChildren(action.getMemberId());
+			final Member member = getDataProvider().retrieveMemberById(action.getMemberId());
+			final Member father = getDataProvider().retrieveMemberById(member.getFatherid());
+			final Member mother = getDataProvider().retrieveMemberById(member.getMotherid());
+			final Member spouse = getDataProvider().retrieveMemberById(member.getSpouseid());
+			final Set<Member> children = getDataProvider().retrieveChildren(action.getMemberId());
 			result = new MemberWithImmediateRelations(member, father, mother, spouse, children);
-		} catch (DataAccessException e) {
+		} catch (final DataAccessException e) {
 			e.printStackTrace();
 		}
 		return result;
 	}
 
+	@Override
 	public Class<RetrieveSingleMemberAction> getActionType() {
 		return RetrieveSingleMemberAction.class;
 	}

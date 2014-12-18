@@ -18,7 +18,7 @@ module.exports = function (grunt) {
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
-    dist: '../src/main/webapp/client'
+    dist: '../target/webgene-0.1.0.BUILD-SNAPSHOT/angular'
   };
 
   // Define the configuration for all the tasks

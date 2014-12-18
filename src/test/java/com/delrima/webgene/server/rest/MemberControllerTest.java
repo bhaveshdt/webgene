@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 
 import javax.annotation.Resource;
 
+import org.hamcrest.Matchers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,12 +60,20 @@ public class MemberControllerTest {
 	}
 
 	@Test
-	public void test() throws Exception {
+	public void test_addChild() throws Exception {
 		mockMvc.perform(post("/member").contentType(APPLICATION_JSON)
-										.content(	"{\"firstname\" : \"Bhavesh\", \"lastname\" : \"Thakker\", \"gender\" : \"M\", \"fatherid\" : 0, \"motherid\" : 0, \"spouseid\" : 0}"))
+										.content(	"{\"firstname\" : \"Bhavesh\", \"lastname\" : \"Thakker\", \"gender\" : \"M\", \"fatherid\" : null, \"motherid\" : null, \"spouseid\" : null}"))
 				.andExpect(status().isOk());
-		// retrieve all
 		mockMvc.perform(get("/member")).andExpect(status().isOk()).andExpect(jsonPath("$[0].firstname", equalToIgnoringCase("Bhavesh")));
 	}
 
+	@Test
+	public void test_addParent() throws Exception {
+		test_addChild();
+		mockMvc.perform(post("/member/1").contentType(APPLICATION_JSON)
+											.content(	"{\"firstname\" : \"Dilip\", \"lastname\" : \"Thakker\", \"gender\" : \"M\", \"fatherid\" : null, \"motherid\" : null, \"spouseid\" : null}"))
+				.andExpect(status().isOk());
+		mockMvc.perform(get("/member")).andExpect(status().isOk()).andExpect(jsonPath("$[1].firstname", equalToIgnoringCase("Dilip")));
+		mockMvc.perform(get("/member/1")).andExpect(status().isOk()).andExpect(jsonPath("$.fatherid", Matchers.equalTo(2)));
+	}
 }

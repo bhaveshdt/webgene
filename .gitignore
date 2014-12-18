@@ -1,3 +1,4 @@
+.DS_STORE
 .project
 .classpath
 .settings/
@@ -6,4 +7,4 @@ target/
 **/gwt-unitCache/
 **/com.delrima.webgene.WebGeneModuleEntry/
 ajcore*.txt
-.log
+*.log
