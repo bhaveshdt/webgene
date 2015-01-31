@@ -1,3 +1,12 @@
+-- Getting Started with AngularJS
+	brew install node
+	cd angularjs
+	npm install
+	npm install -g grunt-cli
+	npm install -g bower
+	bower install
+	grunt serve
+
 
 =====================
 Functional (short-term)

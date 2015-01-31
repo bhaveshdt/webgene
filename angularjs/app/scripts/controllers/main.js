@@ -4,7 +4,7 @@ angular
 		.module('angularjsApp')
 		.directive(
 				'treeMembers',
-				function() {
+				function($compile) {
 					var tree = new Tree({
 						margin : 20,
 						elHeight : 40,
@@ -16,26 +16,24 @@ angular
 					return {
 						template : '<div id="{{containerId}}" style="position: relative;"><div id="{{containerId}}_ancestors" class=""></div><div id="{{containerId}}_descendants" class=""></div></div>',
 						restrict : 'E',
+						transclude: true,
 						scope : {
 							containerId : '@id',
-							members : '=members',
+							members : '=',
 							query : '=',
 							orientation : '='
 						},
-						compile : function() {
-							return {
-								post : function(scope) {
-									var updateTree = function() {
-										console.log('scope', scope);
-										if (!scope.query) {
-											return;
-										}
-										tree.create(scope.query, scope.containerId, scope.members, scope.orientation);
-									};
-									scope.$watch('query', updateTree);
-									scope.$watch('orientation', updateTree);
+						link: function (scope, ele, attrs) {
+							var updateTree = function() {
+								console.log('scope', scope);
+								if (!scope.query) {
+									return;
 								}
+								tree.create(scope.query, scope.containerId, scope.members, scope.orientation);
+								$compile(ele.contents())(scope.$parent);
 							};
+							scope.$watch('query', updateTree);
+							scope.$watch('orientation', updateTree);
 						}
 					};
 				});
@@ -69,7 +67,7 @@ angular.module('angularjsApp').controller(
 				console.log('New Query: ', $scope.query);
 			};
 			$scope.onMemberClick = function(memberId) {
-				console.log('Member clicked: ' + memberId);
+				alert('Member clicked: ' + memberId);
 			};
 		});
 
